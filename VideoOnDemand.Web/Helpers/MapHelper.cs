@@ -16,8 +16,13 @@ namespace VideoOnDemand.Web.Helpers
         {
             var config = new MapperConfiguration(x => {
                 x.CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
+                x.CreateMap<Persona, PersonaViewModel>().ReverseMap();
+                x.CreateMap<Serie, SerieViewModel>().ReverseMap();
+                x.CreateMap<Episodio, EpisodioViewModel>().ReverseMap();
+                x.CreateMap<Episodio, NuevoEpisodioViewModel>().ReverseMap();
+                x.CreateMap<Episodio, ModificadoEpisodioViewModel>().ReverseMap();
 
-               });
+            });
             mapper = config.CreateMapper();
         }
 

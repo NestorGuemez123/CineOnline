@@ -1,0 +1,91 @@
+﻿@model VideoOnDemand.Web.Models.SerieViewModel
+
+<h2>Administrar episodios</h2>
+
+<div>
+    <h4>Serie: @Model.Nombre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DuracionMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DuracionMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaLanzamiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaLanzamiento)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <p>
+        @Html.ActionLink("Crear nuevo episodio", "Create", "Episodio", new { serieId = Model.MediaId }, new { })
+    </p>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().Temporada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().EstadosMedia)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Episodios)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temporada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadosMedia)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Episodio", new { id = item.MediaId }, new { }) |
+                @Html.ActionLink("Delete", "Delete", "Episodio", new { id = item.MediaId }, new { })
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
