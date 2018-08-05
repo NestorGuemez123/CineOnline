@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.DuracionMin)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.FechaLanzamiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadosMedia)
+        </th>
+       
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.DuracionMin)
+            min
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLanzamiento)
+        </td>
+
+        <th>
+                @Html.DisplayFor(modelItem => item.EstadosMedia)           
+        </th>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MediaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MediaId })
+        </td>
+    </tr>
+}
+
+</table>
