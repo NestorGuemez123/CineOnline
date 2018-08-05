@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace VideoOnDemand.Entities
 {
-    class Movie
+    public class Movie : Media
     {
-        public int? MediaId { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public int? DuracionMin { get; set; }
-        public DateTime? FechaRegistro { get; set; }
-        public DateTime? FechaLanzamiento { get; set; }
-        public bool Activo { get; set; }
-
-        public ICollection<Genero> Generos { get; set; }
-        public ICollection<Persona> Actores { get; set; }
+        
     }
 }

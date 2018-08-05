@@ -27,7 +27,7 @@ namespace VideoOnDemand.Web.Helpers
                 x.CreateMap<Episodio, EpisodioViewModel>().ReverseMap();
                 x.CreateMap<Episodio, NuevoEpisodioViewModel>().ReverseMap();
                 x.CreateMap<Episodio, ModificadoEpisodioViewModel>().ReverseMap();
-
+                x.CreateMap<Genero, GeneroViewModel>().ReverseMap();
             });
             mapper = config.CreateMapper();
         }

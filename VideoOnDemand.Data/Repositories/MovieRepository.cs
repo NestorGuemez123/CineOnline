@@ -9,7 +9,7 @@ using VideoOnDemand.Entities;
 
 namespace VideoOnDemand.Repositories
 {
-    class MovieRepository : BaseRepository<Movie>
+    public class MovieRepository : BaseRepository<Movie>
     {
         public MovieRepository(VideoOnDemandContext context) : base(context)
         {

@@ -22,6 +22,7 @@ namespace VideoOnDemand.Data
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Serie> Series { get; set; }
         public DbSet<Episodio> Episodios { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -80,6 +81,12 @@ namespace VideoOnDemand.Data
             favorito.HasRequired(m => m.media).WithMany().HasForeignKey(m => m.mediaId);
             favorito.Property(m => m.usuarioId).IsRequired();
             favorito.HasRequired(m => m.usuario).WithMany().HasForeignKey(m => m.usuarioId);
+            #endregion
+
+            #region  MapeoMovie
+            var movie = modelBuilder.Entity<Movie>();
+            movie.HasKey(y => y.MediaId);
+            movie.ToTable("Movies");
             #endregion
 
             #region MapeoSerie

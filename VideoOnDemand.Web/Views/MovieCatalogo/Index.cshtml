@@ -1,0 +1,63 @@
+﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Peliculas</h2>
+
+<p>
+    @using (Html.BeginForm())
+    {
+    <p>
+        Busqueda por Nombre: @Html.TextBox("Search") <br />
+        <input type="submit" value="Search" />
+    </p>
+    }
+<div></div>
+
+@*<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+
+    }
+</div>*@
+
+<div >
+    @foreach (var item in Model)
+    {
+        
+        <table border="1">
+            
+                <tr>
+                    <td>
+                        <h5 class="card-title"> <a>@Html.DisplayFor(modelItem => item.Nombre)</a></h5>
+                    </td>                    
+                </tr>
+
+                <tr>
+                    <td>
+                        <div>Descripcion:</div>
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h7 class="card-title"><a> Lista</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a> Detalles</a></h7>
+                    </td>
+                </tr>
+           
+        </table>        
+                
+                           
+    }
+</div>
