@@ -1,4 +1,4 @@
-﻿@model VideoOnDemand.Web.Models.SerieViewModel
+﻿@model VideoOnDemand.Web.Models.EliminadoSerieViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -52,7 +52,27 @@
             @Html.DisplayFor(model => model.FechaLanzamiento)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadosMedia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadosMedia)
+        </dd>
+
     </dl>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Actores</h3>
+        </div>
+        <div class="panel-body">
+            @foreach (var item in Model.Actores)
+            {
+                <p>@item.Name (@item.Descripcion) </p>
+            }
+        </div>
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

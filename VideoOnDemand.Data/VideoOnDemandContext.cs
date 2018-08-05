@@ -32,7 +32,7 @@ namespace VideoOnDemand.Data
             usuarioEntity.Property(x => x.Nombre).HasMaxLength(200).IsRequired();
             usuarioEntity.Property(x => x.IdentityId).HasMaxLength(128).IsRequired();
 
-		 #region MapeoGenero
+		    #region MapeoGenero
             var genero = modelBuilder.Entity<Genero>();
             genero.HasKey(i => i.GeneroId);
             genero.Property(i => i.GeneroId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
