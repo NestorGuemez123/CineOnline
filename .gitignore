@@ -328,7 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-VideoOnDemand.Data.csproj
-VideoOnDemand.Web.csproj
-VideoOnDemand.Web.csproj.user
+*.csproj
+*.csproj.user
 
