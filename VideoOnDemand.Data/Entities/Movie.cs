@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VideoOnDemand.Entities
 {
-    class Movie
+    public class Movie
     {
         public int? MediaId { get; set; }
         public string Nombre { get; set; }
