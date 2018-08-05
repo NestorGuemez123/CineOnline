@@ -1,51 +1,53 @@
 ﻿@model IEnumerable<VideoOnDemand.Web.Models.PersonaViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Actores";
 }
 
-<h2>Index</h2>
+<h2>Actores</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Nuevo Actor", "Create")
 </p>
-<table class="table">
+<table class="table-bordered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            <center>@Html.DisplayNameFor(model => model.Name)</center>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            <center>@Html.DisplayNameFor(model => model.Descripcion)</center>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
+            <center>@Html.DisplayNameFor(model => model.FechaNacimiento)</center>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <center>@Html.DisplayNameFor(model => model.Status)</center>
         </th>
-        <th></th>
+        <th><center>Acciones</center></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

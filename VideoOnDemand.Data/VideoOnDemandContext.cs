@@ -120,7 +120,16 @@ namespace VideoOnDemand.Data
             //Uno a muchos con Usuario
             mediaOnPlay.HasRequired(m => m.Usuario).WithMany().HasForeignKey(m => m.UsuarioId);
             #endregion
-            
+
+            #region MapeoPersona
+            var personaEntity = modelBuilder.Entity<Persona>();
+            personaEntity.HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            personaEntity.Property(x => x.Name).HasMaxLength(25);
+            personaEntity.Property(x => x.Descripcion).HasMaxLength(500);
+            personaEntity.Property(x => x.FechaNacimiento).IsOptional();
+
+            #endregion
+
         }
     }
 }
