@@ -25,6 +25,7 @@ namespace VideoOnDemand.Web.Helpers
                 x.CreateMap<Serie, NuevoSerieViewModel>().ReverseMap();
                 x.CreateMap<Serie, ModificadoSerieViewModel>().ReverseMap();
                 x.CreateMap<Serie, EliminadoSerieViewModel>().ReverseMap();
+                x.CreateMap<Serie, ThumbnailSerieViewModel>().ReverseMap();
 
                 x.CreateMap<Episodio, EpisodioViewModel>().ReverseMap();
                 x.CreateMap<Episodio, NuevoEpisodioViewModel>().ReverseMap();
