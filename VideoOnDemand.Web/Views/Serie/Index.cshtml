@@ -1,0 +1,55 @@
+﻿@model VideoOnDemand.Web.Models.PaginatorViewModel<VideoOnDemand.Web.Models.ThumbnailSerieViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Nombre de la serie ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+
+    }
+</div>
+<br />
+
+<div class="row">
+    @foreach (var serie in Model.Results)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>@serie.Nombre</h3>
+                    <h4>@serie.FechaLanzamiento</h4>
+                    <p>@serie.Descripcion</p>
+
+                    @foreach (var genero in serie.Generos)
+                    {
+                        <span>@genero.Nombre</span>
+                    }
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.Partial("_Paginator")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
