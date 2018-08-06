@@ -99,4 +99,18 @@ namespace VideoOnDemand.Web.Models
         // Mantiene la lista de actores
         public ICollection<PersonaViewModel> Actores { get; set; }
     }
+    
+    public class ThumbnailSerieViewModel
+    {
+        public int? MediaId { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? FechaLanzamiento { get; set; }
+
+        // Mantiene la lista de generos
+        public ICollection<GeneroViewModel> Generos { get; set; }
+    }
+
 }
