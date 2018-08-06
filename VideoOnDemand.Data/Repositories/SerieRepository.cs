@@ -16,7 +16,7 @@ namespace VideoOnDemand.Repositories
 
         }
 
-        public void InsertComplete(Serie serie, int[] actoresIds)
+        public void InsertComplete(Serie serie, int[] actoresIds, int[] generosIds)
         {
             if (actoresIds != null)
             {
@@ -31,7 +31,20 @@ namespace VideoOnDemand.Repositories
                     serie.Actores.Add(a);
             }
 
-            else
+            if (generosIds != null)
+            {
+                // Consulto los topicos de mi BD a partir de los Ids
+                var generos = from g in _context.Generos
+                              where generosIds.Contains(g.GeneroId.Value)
+                              select g;
+
+                // Agrego los topics consultados a mi curso
+                serie.Generos = new List<Genero>();
+                foreach (var g in generos)
+                    serie.Generos.Add(g);
+            }
+
+            if(generosIds == null && actoresIds == null)
             {
                 base.Insert(serie);
             }
@@ -39,7 +52,7 @@ namespace VideoOnDemand.Repositories
             _context.Series.Add(serie);
         }
 
-        public void UpdateComplete(Serie serie, int[] actoresSeleccionados)
+        public void UpdateComplete(Serie serie, int[] actoresSeleccionados, int[] generosSeleccionados)
         {
             // Localizar la entidad en el contexto y poder modificar la del contexto.
             _context.Series.Attach(serie);
@@ -49,9 +62,11 @@ namespace VideoOnDemand.Repositories
 
             // Instrucción para recargar una colección de mi entidad.
             _context.Entry(serie).Collection(s => s.Actores).Load();
+            _context.Entry(serie).Collection(s => s.Generos).Load();
 
             // Limpiar la lista
             serie.Actores.Clear();
+            serie.Generos.Clear();
             if (actoresSeleccionados != null)
             {
                 // Vuelve a crear las relaciones con los topics.
@@ -62,6 +77,18 @@ namespace VideoOnDemand.Repositories
                 foreach (var a in actores)
                     serie.Actores.Add(a);
             }
+
+            if (generosSeleccionados != null)
+            {
+                // Vuelve a crear las relaciones con los topics.
+                var generos = from g in _context.Generos
+                              where generosSeleccionados.Contains((int)g.GeneroId)
+                              select g;
+                serie.Generos = new List<Genero>();
+                foreach (var g in generos)
+                    serie.Generos.Add(g);
+            }
+
         }
     }
 }

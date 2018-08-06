@@ -1,0 +1,56 @@
+﻿@model VideoOnDemand.Web.Models.DetalladoSerieViewModel
+
+@{
+    ViewBag.Title = Model.Nombre.ToString();
+}
+
+<h2>Administrar episodios</h2>
+
+<div>
+    <h4>Serie: @Model.Nombre</h4>
+</div>
+
+<div>
+    <p>
+        @Html.ActionLink("Crear nuevo episodio", "Create", new { serieId = Model.MediaId })
+    </p>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().Temporada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Episodios.First().EstadosMedia)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Episodios)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temporada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadosMedia)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MediaId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MediaId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Regresar a la lista de series", "Index", "ManageSerie")
+</div>

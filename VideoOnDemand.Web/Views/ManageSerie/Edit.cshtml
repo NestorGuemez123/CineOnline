@@ -4,10 +4,10 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Model.Nombre.ToString();
 }
 
-<h2>Edit</h2>
+<h2>Editor de series</h2>
 
 
 @using (Html.BeginForm())
@@ -70,32 +70,65 @@ new SelectListItem { Text = "INVISIBLE", Value = EEstatusMedia.INVISIBLE.ToStrin
         </div>
     </div>
 
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Actores</h3>
-        </div>
-        <div class="panel-body">
-            @foreach (var item in Model.ActoresDisponibles)
-            {
-                var seleccionado = "";
-
-                // Activar el checkbox si de los temas disponibles
-                // Existe en los temas seleccionados
-                if (Model.ActoresSeleccionados != null)
-                {
-                    if (Model.ActoresSeleccionados.Contains(item.Id.Value))
-                    {
-                        seleccionado = "checked";
-                    }
-                }
-
-                <div class="checkbox">
-                    <label>
-                        <input name="ActoresSeleccionados" type="checkbox" value="@item.Id.Value.ToString()" @seleccionado> @item.Name
-                    </label>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Actores</h3>
                 </div>
-            }
+                <div class="panel-body">
+                    @foreach (var item in Model.ActoresDisponibles)
+                    {
+                        var seleccionado = "";
+
+                        // Activar el checkbox si de los actores estan disponibles
+                        // Existe en los temas seleccionados
+                        if (Model.ActoresSeleccionados != null)
+                        {
+                            if (Model.ActoresSeleccionados.Contains(item.Id.Value))
+                            {
+                                seleccionado = "checked";
+                            }
+                        }
+
+                        <div class="checkbox">
+                            <label>
+                                <input name="ActoresSeleccionados" type="checkbox" value="@item.Id.Value.ToString()" @seleccionado> @item.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Generos</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var item in Model.GenerosDisponibles)
+                    {
+                        var seleccionado = "";
+
+                        // Activar el checkbox si de los generos estan disponibles
+                        // Existe en los temas seleccionados
+                        if (Model.GenerosSeleccionados != null)
+                        {
+                            if (Model.GenerosSeleccionados.Contains(item.GeneroId.Value))
+                            {
+                                seleccionado = "checked";
+                            }
+                        }
+
+                        <div class="checkbox">
+                            <label>
+                                <input name="GenerosSeleccionados" type="checkbox" value="@item.GeneroId.Value.ToString()" @seleccionado> @item.Nombre
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 
@@ -108,7 +141,7 @@ new SelectListItem { Text = "INVISIBLE", Value = EEstatusMedia.INVISIBLE.ToStrin
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la lista de series", "Index")
 </div>
 
 @section Scripts {

@@ -2,19 +2,16 @@
 @using VideoOnDemand.Entities
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Model.Nombre.ToString();
 }
 
-<h2>Edit</h2>
-
+<h2>Editar episodio</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>EpisodioViewModel</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MediaId);
         @Html.HiddenFor(model => model.SerieId);
@@ -86,7 +83,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la lista de episodios", "Index", new { id = Model.SerieId })
 </div>
 
 @section Scripts {

@@ -40,7 +40,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MediaId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.MediaId }) |
-                @Html.ActionLink("Episodios", "Details", new { id = item.MediaId })
+                @Html.ActionLink("Episodios", "Index", "ManageEpisodio", new { id = item.MediaId }, new { })
             </td>
         </tr>
         }
