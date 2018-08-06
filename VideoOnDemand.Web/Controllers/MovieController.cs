@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using VideoOnDemand.Entities;
@@ -15,21 +16,9 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Movie
         public ActionResult Index()
         {
-            var models = new List<MovieViewModel>().AsEnumerable();
-            try
-            {
-                MovieRepository repository = new MovieRepository(context);
-
-                //Consulte Los individuos del repositorio
-                //var lst = repository.Query(x=>x.EstadosMedia==EEstatusMedia.VISIBLE);
-                var lst = repository.Query(X=>X.EstadosMedia>0);
-                //Mapeamos la lista de individuos con una lista de individuosViewModel
-                models = MapHelper.Map<IEnumerable<MovieViewModel>>(lst);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            MovieRepository repository = new MovieRepository(context);
+            var lst = repository.Query(X=>X.EstadosMedia>0);
+            var models = MapHelper.Map<IEnumerable<MovieViewModel>>(lst);
             return View(models);//No olvidar
             
         }
@@ -43,39 +32,43 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Movie/Create
         public ActionResult Create()
         {
-            //var model = new GeneroViewModel();
-            //GeneroRepository generoRepository = new GeneroRepository(context);
-            //var lst = generoRepository.GetAll();
-            //model.AvailableGeneros = MapHelper.Map<ICollection<GeneroViewModel>>(lst);
-            //return View(model);
-            return View();
+            PersonaRepository personaRepository = new PersonaRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
+
+            var model = new MovieViewModel();
+            var actores = personaRepository.Query(a => a.Status == true);
+            var generos = generoRepository.Query(g => g.Activo == true);
+
+            model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
+            model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+            return View(model);
         }
 
         // POST: Movie/Create
         [HttpPost]
         public ActionResult Create(MovieViewModel model)
-        {
-                
+        {           
             try
             {
+                MovieRepository MovieRepository = new MovieRepository(context);
                 if (ModelState.IsValid)
                 {
                     //Llamado al repositorio
-                    MovieRepository repository = new MovieRepository(context);
+                   
                     #region Validaciones
-                    //Validar Nombre Unico
-                    var MovieQry = new Movie { Nombre = model.Nombre};
-
-                    #endregion
-                    //Mapear el modelo de vista a una entidad topic
-                    Movie movie = MapHelper.Map<Movie>(model);
+                    var movie = MapHelper.Map<Movie>(model);
                     movie.EstadosMedia = EEstatusMedia.VISIBLE;
-                    
-                    repository.Insert(movie);
-                    context.SaveChanges();
+                    movie.FechaRegistro = DateTime.Now;
+                    MovieRepository.InsertComplete(movie, model.GenerosSeleccionados, model.GenerosSeleccionados);
+                    #endregion                          
+                 context.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
-            }
+                else
+                {
+                    return View(model);                 }
+               
+                }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
@@ -88,10 +81,21 @@ namespace VideoOnDemand.Web.Controllers
         {
 
             var repository = new MovieRepository(context);
-                     
-            var movie = repository.Query(x => x.MediaId == id).First();
+            var personaRepository = new PersonaRepository(context);
+            var generoRepository = new GeneroRepository(context);
+
+            // Expresión lambda para incluir las relaciones (No hay carga perezosa)
+            var includes = new Expression<Func<Movie, object>>[] { s => s.Actores, s => s.Generos };
+
+            var movie = repository.QueryIncluding(x => x.MediaId == id, includes).SingleOrDefault();
             var model = MapHelper.Map<MovieViewModel>(movie);
-            //Consultando topics ordenados por name
+
+            var actores = personaRepository.Query(a => a.Status == true);
+            var generos = generoRepository.Query(g => g.Activo == true);
+            model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
+            model.ActoresSeleccionados = movie.Actores.Select(a => a.Id.Value).ToArray();
+            model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+            model.GenerosSeleccionados = movie.Generos.Select(g => g.GeneroId.Value).ToArray();
 
             return View(model);
         }
@@ -100,28 +104,34 @@ namespace VideoOnDemand.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, MovieViewModel model)
         {
-            //var topicRepository = new TopicRepository(context);
+            PersonaRepository personaRepository = new PersonaRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
             try
             {
-                var repository = new MovieRepository(context);
+               MovieRepository repository = new MovieRepository(context);
 
                 if (ModelState.IsValid)
                 {
 
                     var movie = MapHelper.Map<Movie>(model);
-                    repository.Update(movie);
+                    repository.UpdateComplete(movie, model.ActoresSeleccionados, model.GenerosSeleccionados);
                     context.SaveChanges();
                     return RedirectToAction("Index");
                 }
 
-              
+                var actores = personaRepository.Query(a => a.Status == true);
+                var generos = generoRepository.Query(g => g.Activo == true);
+
+                model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
+                model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+
                 return View(model);
             }
-            catch (Exception ex)
+            catch 
             {
-                
+                var actores = personaRepository.Query(a => a.Status == true);
+                model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
                 return View(model);
-
             }
         }
         

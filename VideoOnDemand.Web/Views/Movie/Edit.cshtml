@@ -48,13 +48,88 @@
                 @Html.ValidationMessageFor(model => model.FechaLanzamiento, "", new { @class = "text-danger" })
             </div>
         </div>
+        @{
+            var selectList = new SelectList(
+                new List<SelectListItem>
+                {
+            new SelectListItem {Text = "VISIBLE", Value = "1"},
+            new SelectListItem {Text = "INVISIBLE", Value = "2"},
+                }, "Value", "Text");
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.EstadosMedia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EstadosMedia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(m => m.EstadosMedia, selectList, new { @class = "form-control" })
+
                 @Html.ValidationMessageFor(model => model.EstadosMedia, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Actores</h3>
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var item in Model.ActoresDisponibles)
+                        {
+                            var seleccionado = "";
+
+                            // Activar el checkbox si de los actores estan disponibles
+                            // Existe en los temas seleccionados
+                            if (Model.ActoresSeleccionados != null)
+                            {
+                                if (Model.ActoresSeleccionados.Contains(item.Id.Value))
+                                {
+                                    seleccionado = "checked";
+                                }
+                            }
+
+                            <div class="checkbox">
+                                <label>
+                                    <input name="ActoresSeleccionados" type="checkbox" value="@item.Id.Value.ToString()" @seleccionado> @item.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Generos</h3>
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var item in Model.GenerosDisponibles)
+                        {
+                            var seleccionado = "";
+
+                            // Activar el checkbox si de los generos estan disponibles
+                            // Existe en los temas seleccionados
+                            if (Model.GenerosSeleccionados != null)
+                            {
+                                if (Model.GenerosSeleccionados.Contains(item.GeneroId.Value))
+                                {
+                                    seleccionado = "checked";
+                                }
+                            }
+
+                            <div class="checkbox">
+                                <label>
+                                    <input name="GenerosSeleccionados" type="checkbox" value="@item.GeneroId.Value.ToString()" @seleccionado> @item.Nombre
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
         </div>
 
         <div class="form-group">
