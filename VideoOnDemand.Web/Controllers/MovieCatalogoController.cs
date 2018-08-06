@@ -36,5 +36,16 @@ namespace VideoOnDemand.Web.Controllers
 
             return View(MovieQry);
         }
+
+        // GET: Genero/Details/5
+        public ActionResult Details(int id)
+        {
+            MovieRepository repository = new MovieRepository(context);
+            var movie = repository.Query(t => t.MediaId == id).First();
+            var model = MapHelper.Map<MovieViewModel>(movie);
+
+
+            return View(model);            
+        }
     }
 }

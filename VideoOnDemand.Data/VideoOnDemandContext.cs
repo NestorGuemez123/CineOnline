@@ -23,6 +23,7 @@ namespace VideoOnDemand.Data
         public DbSet<Serie> Series { get; set; }
         public DbSet<Episodio> Episodios { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Opinion> Opiniones { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -62,6 +63,8 @@ namespace VideoOnDemand.Data
                 am.MapRightKey("ActoresId");
                 am.ToTable("Media-Actor");
             });
+
+            media.HasMany(m => m.Opiniones).WithOptional(o => o.Media).HasForeignKey(o => o.MediaId);
             #endregion
 
             #region MapeoOpinion
