@@ -122,8 +122,8 @@ namespace VideoOnDemand.Web.Models
     {
         public int? MediaId { get; set; }
         public string Nombre { get; set; }
+        public int DuracionMin { get; set; }
         public string Descripcion { get; set; }
-        public int? DuracionMin { get; set; }
         public DateTime? FechaLanzamiento { get; set; }
 
         // Mantiene la lista de generos

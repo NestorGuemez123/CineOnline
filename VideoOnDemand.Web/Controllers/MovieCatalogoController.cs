@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using VideoOnDemand.Entities;
@@ -13,28 +14,29 @@ namespace VideoOnDemand.Web.Controllers
     public class MovieCatalogoController : BaseController
     {
         // GET: MovieCatalogo
-        public ActionResult Index(string Search)
+        public ActionResult Index(int page = 1, string busqueda = null, string genero=null, int pageSize = 3)
         {
-            MovieRepository repository = new MovieRepository(context);
-            Movie movie = new Movie();
-            movie.Nombre = Search;
+            MovieRepository movieRepository = new MovieRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
+            var includes = new Expression<Func<Movie, object>>[] { s => s.Generos };
+            int totalDePaginas;
+            int totalDeFilas;
+            ICollection<Movie> movies;
 
-            ICollection<Movie> list = null;
+            movies = movieRepository.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
 
-            if (!String.IsNullOrEmpty(Search))
-            {
-                list = repository.QueryByExample(movie);
+            ViewBag.Busqueda = busqueda;
+            ViewBag.Genero = genero;
+            ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where(g => g != genero).ToList();
 
-            }
-            else
-            {
-
-                list = repository.GetAll().ToList();
-            }
-            var models = MapHelper.Map<IEnumerable<MovieViewModel>>(list); //Se agrega esto
-            var MovieQry = models.Where(m => m.EstadosMedia.Equals(EEstatusMedia.VISIBLE));
-
-            return View(MovieQry);
+            var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
+            paginador.Page = page;
+            paginador.PageSize = pageSize;
+            paginador.Results = MapHelper.Map<ICollection<ThumbnailSerieViewModel>>(movies);
+            paginador.TotalPages = totalDePaginas;
+            paginador.TotalRows = totalDeFilas;
+            
+            return View(paginador);
         }
 
         // GET: Genero/Details/5

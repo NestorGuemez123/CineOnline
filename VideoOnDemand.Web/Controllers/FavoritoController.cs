@@ -29,24 +29,45 @@ namespace VideoOnDemand.Web.Controllers
         }
 
         // GET: Favorito/Create
-        public ActionResult Create(int id)
+        public ActionResult Create(int? id)
         {
             FavoritoRepository repository = new FavoritoRepository(context);
-            var persona = repository.Query(t => t.mediaId == id).First();
-            var models = MapHelper.Map<FavoritoViewModel>(persona);
-            return View(models);
+            UsuarioRepository repositoryUsuario = new UsuarioRepository(context);
+            try
+            {
+                var us = Session["UserId"] as string;
+
+                var persona = repository.Query(t => t.mediaId == id).First();
+                var model = MapHelper.Map<FavoritoViewModel>(persona);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View();
         }
 
         // POST: Favorito/Create
         [HttpPost]
-        public ActionResult Create(FavoritoViewModel model)
+        public ActionResult Create(int? id,FavoritoViewModel model)
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    FavoritoRepository repository = new FavoritoRepository(context);
+                    Favorito persona = MapHelper.Map<Favorito>(model);
+                    repository.Insert(persona);
+                    context.SaveChanges();
+
+                }
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }
@@ -76,16 +97,22 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Favorito/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            FavoritoRepository repository = new FavoritoRepository(context);
+            var persona = repository.Query(t => t.id == id).First();
+            var model = MapHelper.Map<FavoritoViewModel>(persona);
+            return View(model);
         }
 
         // POST: Favorito/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, FavoritoViewModel model)
         {
             try
             {
-                // TODO: Add delete logic here
+                FavoritoRepository repository = new FavoritoRepository(context);
+                var persona = repository.Query(e => e.id == id).First();
+                repository.Delete(persona);
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
