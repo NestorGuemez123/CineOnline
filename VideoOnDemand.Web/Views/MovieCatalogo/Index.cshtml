@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -16,48 +17,48 @@
     }
 <div></div>
 
-@*<div class="card-deck">
-    @foreach (var item in Model)
-    {
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-
+<style>        
+    table#pelicula{
+        width:200px;
+        height:300px;
+        float:left;
+        
     }
-</div>*@
+    footer{
+        width:1px;
+        height:1px;
+        float:none;
+    }
+
+</style>
 
 <div >
     @foreach (var item in Model)
     {
-        
-        <table border="1">
-            
+        <div >
+            <table id="pelicula" border="1" >
                 <tr>
-                    <td>
-                        <h5 class="card-title"> <a>@Html.DisplayFor(modelItem => item.Nombre)</a></h5>
-                    </td>                    
-                </tr>
+                    <th colspan="2"><a>@Html.DisplayFor(modelItem => item.Nombre)</a>
+                    <div><h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                         Duracion: @Html.DisplayFor(modelItem => item.DuracionMin)</h5></div>
 
+                            <h5 class="card-title">Genero:@Html.DisplayFor(modelItem => item.GenerosSeleccionados)</h5></th>
+                </tr>
                 <tr>
-                    <td>
+                    <th colspan="2">
                         <div>Descripcion:</div>
                         <h6 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h6>
-                    </td>
+                    </th>
                 </tr>
                 <tr>
+                    <td>                        
+                        <h7 class="card-title"><a>+ Mi Lista</a></h7>
+                    </td>
                     <td>
-                        <h7 class="card-title"><a> Lista</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a> Detalles</a></h7>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.MediaId})
                     </td>
                 </tr>
-           
-        </table>        
-                
-                           
+            </table>
+        </div>
     }
 </div>

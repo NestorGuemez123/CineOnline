@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using VideoOnDemand.Entities;
 
-namespace VideoOnDemand.Entities
+namespace VideoOnDemand.Web.Models
 {
-    public class Favorito
+    public class FavoritoViewModel
     {
         public int id { get; set; }
         public DateTime? FechaAgregado { get; set; }
@@ -14,5 +14,5 @@ namespace VideoOnDemand.Entities
         public Usuario usuario { get; set; }
         public int? mediaId { get; set; }
         virtual public Media media { get; set; }
-    }
+   }
 }

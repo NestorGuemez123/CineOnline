@@ -17,12 +17,21 @@ namespace VideoOnDemand.Web.Models
         public string Descripcion { get; set; }
         [Required]
         public int? DuracionMin { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaRegistro { get; set; }
-        [Required]
-        [DisplayName("Fecha de Lanzamiento")]
+
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
+
         public EEstatusMedia? EstadosMedia { get; set; }
+
+        public ICollection<GeneroViewModel> GenerosDisponibles { get; set; }
+        public int[] GenerosSeleccionados { get; set; }
+
+
+        public ICollection<PersonaViewModel> ActoresDisponibles { get; set; }
+        public int[] ActoresSeleccionados { get; set; }
 
         public ICollection<Genero> Generos { get; set; }
         public ICollection<Persona> Actores { get; set; }
