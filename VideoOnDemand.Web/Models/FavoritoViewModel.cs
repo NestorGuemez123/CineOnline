@@ -13,6 +13,6 @@ namespace VideoOnDemand.Web.Models
         public int? usuarioId { get; set; }
         public Usuario usuario { get; set; }
         public int? mediaId { get; set; }
-        public Media media { get; set; }
-    }
+        virtual public Media media { get; set; }
+   }
 }

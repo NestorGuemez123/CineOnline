@@ -34,14 +34,19 @@
     <tr><td width="600">Generos: @Html.DisplayFor(model => model.Generos)</td></tr>
     <tr><td width="600">Actores: @Html.DisplayFor(model => model.Actores)</td></tr>   
     <tr>
-        <th rowspan="3"><a>+ Mi Lista</a></th>       
+        <th rowspan="3"><a>@Html.ActionLink("+ Agregar a favorito", "Create", "Favorito", new { id = Model.MediaId }, null)</a></th>       
         <td>
             <h7 class="card-title"><a href="https://www.verpelicula.online/play.php?watch=299536">Reproducir</a></h7>
         </td>
     </tr>                             
 </table>
+<div>
+    @*Pasa el Id de la pelicula*@
+    @Html.ActionLink("Opinion", "Create", "Opinion", new { id=Model.MediaId }, null)
+    @*<a href="/Opinion/Create/@Model.MediaId" target="_blank">Opinion</a>*@
 
-<iframe src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Dive_hand_signal_OK_1.png/600px-Dive_hand_signal_OK_1.png" width="800px" height="400px"> </iframe>
+</div>
+@*<iframe src="http://localhost:62225/Opinion/Create" width="800px" height="400px"> </iframe>*@
 
 
 

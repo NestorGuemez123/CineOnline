@@ -13,33 +13,22 @@ namespace VideoOnDemand.Web.Controllers
 {
     public class MovieCatalogoController : BaseController
     {
-        //public SelectList GeneroList(object selectedItem = null)
-        //{
-        //    var repository = new GeneroRepository(context);
-        //    var genero = repository.Query(null, "Nombre").ToList();
-        //    genero.Insert(0, new Genero { GeneroId = null, Nombre = "seleccione" });
-        //    return new SelectList(genero, "GeneroId", "Nombre", selectedItem);
-        //}
-
         // GET: MovieCatalogo
-        public ActionResult Index(int page = 1, string busqueda = null, int pageSize = 3)
+        public ActionResult Index(int page = 1, string busqueda = null, string genero=null, int pageSize = 3)
         {
             MovieRepository movieRepository = new MovieRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
             var includes = new Expression<Func<Movie, object>>[] { s => s.Generos };
             int totalDePaginas;
             int totalDeFilas;
             ICollection<Movie> movies;
 
-            if (String.IsNullOrEmpty(busqueda))
-            {
-                var MovieBuscada = new Movie { Nombre = busqueda, EstadosMedia = EEstatusMedia.VISIBLE };
-                movies = movieRepository.QueryPageByExampleIncluding(MovieBuscada, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
-            }
-            else
-            {
-                var MovieBuscada = new Movie { Nombre = busqueda, EstadosMedia = EEstatusMedia.VISIBLE };
-                movies = movieRepository.QueryPageIncluding(null, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
-            }
+            movies = movieRepository.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
+
+            ViewBag.Busqueda = busqueda;
+            ViewBag.Genero = genero;
+            ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where(g => g != genero).ToList();
+
             var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
             paginador.Page = page;
             paginador.PageSize = pageSize;

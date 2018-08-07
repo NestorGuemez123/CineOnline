@@ -8,14 +8,47 @@
 <h2>Peliculas</h2>
 
 <p>
-    @using (Html.BeginForm())
-    {
-    <p>
-        Busqueda por Nombre: @Html.TextBox("Search") <br />
-        <input type="submit" value="Search" />
-    </p>
-    }
-<div></div>
+        @using (Html.BeginForm())
+        {
+            <div class="form-inline">
+                <input type="text" id="page" name="page" value="1" hidden />
+
+                <div class="col-md-3">
+                    <label>Nombre de la Pelicula</label>
+                    <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Peliculas por pagina</label>
+                    <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
+                </div>
+
+                <div class="col-md-3">
+                    <label>Genero de la Pelicula</label>
+                    <select id="genero" name="genero" class="form-control">
+                        @if (String.IsNullOrEmpty(ViewBag.Genero))
+                        {
+                            <option value=""></option>
+                        }
+                        else
+                        {
+                            <option value=@ViewBag.Genero>@ViewBag.Genero</option>
+                            <option value=""></option>
+                        }
+                         
+                        @foreach (var genero in (List<string>)ViewBag.ListaGeneros)
+                        {
+                            <option value="@genero">@genero</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <br />
+                    <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        }
+<div><h1></h1></div>
 
 <style>        
     table#pelicula{
@@ -29,12 +62,15 @@
         height:1px;
         float:none;
     }
+    nosalto{
+    font-weight: normal !important;
+    }
 
 </style>
 
 <div class="row">
     @foreach (var item in Model.Results)
-    {
+    { 
         <div class="col">
             <div class="col-lg-3">
                 <table id="pelicula" border="1">
@@ -44,9 +80,10 @@
                             <div class="caption text-center">
                                 <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.DuracionMin min</h5>
                             </div>
+                            Genero: &nbsp;
                             @foreach (var genero in item.Generos)
                             {
-                                <span>@genero.Nombre</span>
+                                <nosalto>@genero.Nombre</nosalto>
                             }
                     </tr>
                     <tr>
@@ -65,7 +102,7 @@
                     </tr>
                 </table>
             </div>
-        </div>
+            </div>
     }
 </div>
 <h1></h1>

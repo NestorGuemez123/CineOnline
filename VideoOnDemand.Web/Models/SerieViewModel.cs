@@ -106,8 +106,6 @@ namespace VideoOnDemand.Web.Models
         public string Nombre { get; set; }
         public int DuracionMin { get; set; }
         public string Descripcion { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
 
         // Mantiene la lista de generos
