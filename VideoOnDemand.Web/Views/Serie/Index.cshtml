@@ -1,46 +1,98 @@
 ﻿@model VideoOnDemand.Web.Models.PaginatorViewModel<VideoOnDemand.Web.Models.ThumbnailSerieViewModel>
+@using VideoOnDemand.Entities
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Peliculas</h2>
 
 <div class="row">
     @using (Html.BeginForm())
     {
-        <div class="col-md-3">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Nombre de la serie ...">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
+        <div class="form-inline">
+            <input type="text" id="page" name="page" value="1" hidden />
+
+            <div class="col-md-3">
+                <label>Nombre de la serie</label>
+                <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
+            </div>
+
+            <div class="col-md-2">
+                <label>Series por pagina</label>
+                <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Genero de la serie</label>
+                <select id="genero" name="genero" class="form-control">
+                    @if (String.IsNullOrEmpty(ViewBag.Genero))
+                    {
+                        <option value=""></option>
+                    }
+                    else
+                    {
+                        <option value=@ViewBag.Genero>@ViewBag.Genero</option>
+                        <option value=""></option>
+                    }
+
+                    @foreach (var genero in (List<string>)ViewBag.ListaGeneros)
+                    {
+                        <option value="@genero">@genero</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <br />
+                <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
             </div>
         </div>
-
     }
 </div>
 <br />
 
+
 <div class="row">
     @foreach (var serie in Model.Results)
     {
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>@serie.Nombre</h3>
-                    <h4>@serie.FechaLanzamiento</h4>
-                    <p>@serie.Descripcion</p>
-
+    <div class="col-md-4">
+        <div class="panel panel-default" style="height:250px;">
+            <div class="panel-heading">
+                <h3>@serie.Nombre</h3>
+                <div class="row">
+                    <div class="pull-left">
+                        @serie.FechaLanzamiento
+                    </div>
+                    <div class="pull-right">
+                        @serie.DuracionMin min
+                    </div>
+                </div>
+                <div class="row">
                     @foreach (var genero in serie.Generos)
                     {
-                        <span>@genero.Nombre</span>
+                        <span class="badge">@genero.Nombre</span>
                     }
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                 </div>
             </div>
+
+            <div class="panel-body">
+                <p>Descripcion: @serie.Descripcion</p>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="pull-left">
+                        <a href="" class="btn btn-primary" role="button">Mi lista</a>
+                    </div>
+
+                    <div class="pull-right">
+                        <a href="" class="btn btn-primary" role="button">Detalles</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
     }
 </div>
 

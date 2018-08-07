@@ -14,24 +14,25 @@ namespace VideoOnDemand.Web.Controllers
     public class SerieController : BaseController
     {
         // GET: Serie
-        public ActionResult Index(int page = 1, string busqueda = null, int pageSize = 3)
+        public ActionResult Index(int page = 1, string busqueda = null, string genero = null, int pageSize = 3)
         {
             SerieRepository serieRepository = new SerieRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
+
             var includes = new Expression<Func<Serie, object>>[] { s => s.Generos };
+            
             int totalDePaginas;
             int totalDeFilas;
 
             ICollection<Serie> series;
 
-            if (!String.IsNullOrEmpty(busqueda))
-            {
-                var serieBuscada = new Serie { Nombre = busqueda, EstadosMedia = EEstatusMedia.VISIBLE};
-                series = serieRepository.QueryPageByExampleIncluding(serieBuscada, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
-            }
-            else
-            {
-                series = serieRepository.QueryPageIncluding(null, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
-            }        
+
+            series = serieRepository.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);       
+            
+            ViewBag.Busqueda = busqueda;
+            ViewBag.Genero = genero;
+            ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where( g=> g != genero).ToList();
+
             var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
             paginador.Page = page;
             paginador.PageSize = pageSize;
