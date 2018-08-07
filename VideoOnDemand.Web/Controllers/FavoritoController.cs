@@ -29,24 +29,41 @@ namespace VideoOnDemand.Web.Controllers
         }
 
         // GET: Favorito/Create
-        public ActionResult Create(int id)
+        public ActionResult Create(int? id)
         {
             FavoritoRepository repository = new FavoritoRepository(context);
-            var persona = repository.Query(t => t.mediaId == id).First();
-            var models = MapHelper.Map<FavoritoViewModel>(persona);
-            return View(models);
+            UsuarioRepository repositoryUsuario = new UsuarioRepository(context);
+            try
+            {
+                var us = Session["UserId"] as string;
+
+                var persona = repository.Query(t => t.mediaId == id).FirstOrDefault();
+                var model = MapHelper.Map<FavoritoViewModel>(persona);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View();
         }
 
         // POST: Favorito/Create
         [HttpPost]
-        public ActionResult Create(FavoritoViewModel model)
+        public ActionResult Create(int? id,FavoritoViewModel model)
         {
             try
             {
-                return RedirectToAction("Index");
+                    FavoritoRepository repository = new FavoritoRepository(context);
+                    var persona = repository.Query(t => t.mediaId == id).FirstOrDefault();
+                    var models = MapHelper.Map<FavoritoViewModel>(persona);
+                    return View(models);
+                    repository.Insert(persona);
+                    context.SaveChanges();
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }
