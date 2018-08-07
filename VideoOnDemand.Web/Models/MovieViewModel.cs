@@ -11,19 +11,27 @@ namespace VideoOnDemand.Web.Models
     public class MovieViewModel 
     {
         public int? MediaId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "La descripcion es requerida")]
         public string Descripcion { get; set; }
-        [Required]
+    
+        [DisplayName("Duración (min)")]
+        [Required(ErrorMessage="La duración es requerida")]
         public int? DuracionMin { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
+        [DisplayName("Fecha de registro")]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaRegistro { get; set; }
 
+        [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
 
+        [DisplayName("Estado para los usuarios")]
         public EEstatusMedia? EstadosMedia { get; set; }
 
         public ICollection<GeneroViewModel> GenerosDisponibles { get; set; }

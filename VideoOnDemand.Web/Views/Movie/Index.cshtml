@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movies";
 }
 
-<h2>Index</h2>
+<h2>Administrar movies</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nueva movie", "Create")
 </p>
-<table class="table">
+<table class="table table-hover table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.EstadosMedia)
         </th>
        
-        <th>Actions</th>
+        <th>Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
