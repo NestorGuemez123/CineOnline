@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <td>                        
-                        <h7 class="card-title"><a>+ Mi Lista</a></h7>
+                        <h7 class="card-title"><a>@Html.ActionLink("+ a mi lista.", "Favorito", new { id = item.MediaId })</a></h7>
                     </td>
                     <td>
                         @Html.ActionLink("Detalles", "Details", new { id = item.MediaId})

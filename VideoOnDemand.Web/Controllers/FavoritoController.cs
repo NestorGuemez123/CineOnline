@@ -37,7 +37,7 @@ namespace VideoOnDemand.Web.Controllers
             {
                 var us = Session["UserId"] as string;
 
-                var persona = repository.Query(t => t.mediaId == id).FirstOrDefault();
+                var persona = repository.Query(t => t.mediaId == id).First();
                 var model = MapHelper.Map<FavoritoViewModel>(persona);
                 return View(model);
             }
@@ -54,12 +54,16 @@ namespace VideoOnDemand.Web.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                     FavoritoRepository repository = new FavoritoRepository(context);
-                    var persona = repository.Query(t => t.mediaId == id).FirstOrDefault();
-                    var models = MapHelper.Map<FavoritoViewModel>(persona);
-                    return View(models);
+                    Favorito persona = MapHelper.Map<Favorito>(model);
                     repository.Insert(persona);
                     context.SaveChanges();
+
+                }
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -93,16 +97,22 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Favorito/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            FavoritoRepository repository = new FavoritoRepository(context);
+            var persona = repository.Query(t => t.id == id).First();
+            var model = MapHelper.Map<FavoritoViewModel>(persona);
+            return View(model);
         }
 
         // POST: Favorito/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, FavoritoViewModel model)
         {
             try
             {
-                // TODO: Add delete logic here
+                FavoritoRepository repository = new FavoritoRepository(context);
+                var persona = repository.Query(e => e.id == id).First();
+                repository.Delete(persona);
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
