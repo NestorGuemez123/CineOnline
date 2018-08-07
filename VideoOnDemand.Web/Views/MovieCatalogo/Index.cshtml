@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
+﻿@model VideoOnDemand.Web.Models.PaginatorViewModel<VideoOnDemand.Web.Models.ThumbnailSerieViewModel>
 
 
 @{
@@ -32,33 +32,49 @@
 
 </style>
 
-<div >
-    @foreach (var item in Model)
+<div class="row">
+    @foreach (var item in Model.Results)
     {
-        <div >
-            <table id="pelicula" border="1" >
-                <tr>
-                    <th colspan="2"><a>@Html.DisplayFor(modelItem => item.Nombre)</a>
-                    <div><h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                         Duracion: @Html.DisplayFor(modelItem => item.DuracionMin)</h5></div>
-
-                            <h5 class="card-title">Genero:@Html.DisplayFor(modelItem => item.GenerosSeleccionados)</h5></th>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <div>Descripcion:</div>
-                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h6>
-                    </th>
-                </tr>
-                <tr>
-                    <td>                        
-                        <h7 class="card-title"><a>+ Mi Lista</a></h7>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Detalles", "Details", new { id = item.MediaId})
-                    </td>
-                </tr>
-            </table>
+        <div class="col">
+            <div class="col-lg-3">
+                <table id="pelicula" border="1">
+                    <tr>
+                        <th colspan="2">
+                            <h1 class="text-center">@item.Nombre</h1>
+                            <div class="caption text-center">
+                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.DuracionMin min</h5>
+                            </div>
+                            @foreach (var genero in item.Generos)
+                            {
+                                <span>@genero.Nombre</span>
+                            }
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <div>Descripcion:</div>
+                            <h6 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h6>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h7 class="card-title"><a>+ Mi Lista</a></h7>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Details", new { id = item.MediaId })
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     }
 </div>
+<h1></h1>
+
+@Html.Partial("_Paginator")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

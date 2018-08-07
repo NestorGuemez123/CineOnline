@@ -104,6 +104,7 @@ namespace VideoOnDemand.Web.Models
     {
         public int? MediaId { get; set; }
         public string Nombre { get; set; }
+        public int DuracionMin { get; set; }
         public string Descripcion { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy}", ApplyFormatInEditMode = true)]

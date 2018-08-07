@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using VideoOnDemand.Entities;
@@ -12,29 +13,41 @@ namespace VideoOnDemand.Web.Controllers
 {
     public class MovieCatalogoController : BaseController
     {
+        //public SelectList GeneroList(object selectedItem = null)
+        //{
+        //    var repository = new GeneroRepository(context);
+        //    var genero = repository.Query(null, "Nombre").ToList();
+        //    genero.Insert(0, new Genero { GeneroId = null, Nombre = "seleccione" });
+        //    return new SelectList(genero, "GeneroId", "Nombre", selectedItem);
+        //}
+
         // GET: MovieCatalogo
-        public ActionResult Index(string Search)
+        public ActionResult Index(int page = 1, string busqueda = null, int pageSize = 3)
         {
-            MovieRepository repository = new MovieRepository(context);
-            Movie movie = new Movie();
-            movie.Nombre = Search;
+            MovieRepository movieRepository = new MovieRepository(context);
+            var includes = new Expression<Func<Movie, object>>[] { s => s.Generos };
+            int totalDePaginas;
+            int totalDeFilas;
+            ICollection<Movie> movies;
 
-            ICollection<Movie> list = null;
-
-            if (!String.IsNullOrEmpty(Search))
+            if (String.IsNullOrEmpty(busqueda))
             {
-                list = repository.QueryByExample(movie);
-
+                var MovieBuscada = new Movie { Nombre = busqueda, EstadosMedia = EEstatusMedia.VISIBLE };
+                movies = movieRepository.QueryPageByExampleIncluding(MovieBuscada, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
             }
             else
             {
-
-                list = repository.GetAll().ToList();
+                var MovieBuscada = new Movie { Nombre = busqueda, EstadosMedia = EEstatusMedia.VISIBLE };
+                movies = movieRepository.QueryPageIncluding(null, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
             }
-            var models = MapHelper.Map<IEnumerable<MovieViewModel>>(list); //Se agrega esto
-            var MovieQry = models.Where(m => m.EstadosMedia.Equals(EEstatusMedia.VISIBLE));
-
-            return View(MovieQry);
+            var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
+            paginador.Page = page;
+            paginador.PageSize = pageSize;
+            paginador.Results = MapHelper.Map<ICollection<ThumbnailSerieViewModel>>(movies);
+            paginador.TotalPages = totalDePaginas;
+            paginador.TotalRows = totalDeFilas;
+            
+            return View(paginador);
         }
 
         // GET: Genero/Details/5
