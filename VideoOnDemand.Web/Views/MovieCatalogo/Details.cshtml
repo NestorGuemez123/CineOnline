@@ -40,8 +40,13 @@
         </td>
     </tr>                             
 </table>
+<div>
+    @*Pasa el Id de la pelicula*@
+    @Html.ActionLink("Opinion", "Create", "Opinion", new { id=Model.MediaId }, null)
+    @*<a href="/Opinion/Create/@Model.MediaId" target="_blank">Opinion</a>*@
 
-<iframe src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Dive_hand_signal_OK_1.png/600px-Dive_hand_signal_OK_1.png" width="800px" height="400px"> </iframe>
+</div>
+@*<iframe src="http://localhost:62225/Opinion/Create" width="800px" height="400px"> </iframe>*@
 
 
 
