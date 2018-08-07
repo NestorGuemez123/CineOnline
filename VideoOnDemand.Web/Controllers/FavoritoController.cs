@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using VideoOnDemand.Entities;
 using VideoOnDemand.Repositories;
 using VideoOnDemand.Web.Helpers;
 using VideoOnDemand.Web.Models;
@@ -16,8 +18,7 @@ namespace VideoOnDemand.Web.Controllers
         {
             FavoritoRepository repository = new FavoritoRepository(context);
             var lst = repository.GetAll();
-            var models = MapHelper.Map<IEnumerable<FavoritoViewModel>>(lst);
-
+            var models = MapHelper.Map<List<FavoritoViewModel>>(lst);
             return View(models);
         }
 
