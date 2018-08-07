@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -38,10 +39,10 @@
             <table id="pelicula" border="1" >
                 <tr>
                     <th colspan="2"><a>@Html.DisplayFor(modelItem => item.Nombre)</a>
-                    <div><h5 class="card-title">@Html.DisplayFor(modelItem => item.FechaLanzamiento)
+                    <div><h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                          Duracion: @Html.DisplayFor(modelItem => item.DuracionMin)</h5></div>
-                        <h5 class="card-title">Genero: @Html.DisplayFor(modelItem => item.Generos)</h5>
-                    </th>
+
+                            <h5 class="card-title">Genero:@Html.DisplayFor(modelItem => item.GenerosSeleccionados)</h5></th>
                 </tr>
                 <tr>
                     <th colspan="2">
