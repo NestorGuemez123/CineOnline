@@ -1,26 +1,25 @@
 ﻿@model IEnumerable<VideoOnDemand.Web.Models.GeneroViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Generos";
 }
 
-<h2>Index</h2>
+<h2>Administrar generos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear nuevo genero", "Create")
 </p>
-<table class="table">
+<table class="table table-hover table-responsive">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GeneroId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
-        <th></th>
+        <th>
+            Acciones
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -39,3 +38,4 @@
 }
 
 </table>
+

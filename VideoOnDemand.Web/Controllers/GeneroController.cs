@@ -57,7 +57,7 @@ namespace VideoOnDemand.Web.Controllers
                     }
                     #endregion
                     Genero genero = MapHelper.Map<Genero>(model);
-
+                    genero.Activo = true;
                     repository.Insert(genero);
                     context.SaveChanges();
                 }

@@ -16,7 +16,7 @@ namespace VideoOnDemand.Web.Controllers
         public ActionResult Index()
         {
             PersonaRepository repository = new PersonaRepository(context);
-            var lst = repository.GetAll();
+            var lst = repository.Query( p => p.Status == true);
             var models = MapHelper.Map<IEnumerable<PersonaViewModel>>(lst);
 
             return View(models);
@@ -46,14 +46,15 @@ namespace VideoOnDemand.Web.Controllers
                     #region validacion
                     var topicQry = new Persona { Name = model.Name };
                     //Consulto los temas con el nombre y valido su existe un elemento
-                    bool existeTopic = repository.QueryByExample(topicQry).Count > 0;
+                    bool existeTopic = repository.QueryByExample(topicQry).Where(t => t.Status == true).Count() > 0;
                     if (existeTopic)
                     {
-                        ModelState.AddModelError("Name", "El nombre del tema ya existe");
+                        ModelState.AddModelError("Name", "El nombre del actor ya existe");
                         return View(model);
                     }
                     #endregion
                     Persona persona = MapHelper.Map<Persona>(model);
+                    persona.Status = true;
                     repository.Insert(persona);
                     context.SaveChanges();
 
