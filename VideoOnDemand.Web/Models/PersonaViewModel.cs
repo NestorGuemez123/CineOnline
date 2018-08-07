@@ -11,17 +11,19 @@ namespace VideoOnDemand.Web.Models
     {
         public int? Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El nombre es requerido")]
         [MaxLength(25)]
         [DisplayName("Nombre")]
         public string Name { get; set; }
         [MaxLength(500)]
         public string Descripcion { get; set; }
 
+        [DisplayName("Fecha de nacimiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaNacimiento { get; set; }
-        [DisplayName("Estado")]
+
+        [DisplayName("Estado para los usuarios")]
         public bool? Status { get; set; }
     }
 }

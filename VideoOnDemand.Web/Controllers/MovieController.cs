@@ -59,7 +59,7 @@ namespace VideoOnDemand.Web.Controllers
                     var movie = MapHelper.Map<Movie>(model);
                     movie.EstadosMedia = EEstatusMedia.VISIBLE;
                     movie.FechaRegistro = DateTime.Now;
-                    MovieRepository.InsertComplete(movie, model.GenerosSeleccionados, model.GenerosSeleccionados);
+                    MovieRepository.InsertComplete(movie, model.GenerosSeleccionados, model.ActoresSeleccionados);
                     #endregion                          
                  context.SaveChanges();
                     return RedirectToAction("Index");

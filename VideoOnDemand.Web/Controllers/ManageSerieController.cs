@@ -139,6 +139,8 @@ namespace VideoOnDemand.Web.Controllers
 
             var includes = new Expression<Func<Serie, object>>[] { s => s.Actores, s => s.Generos };
             var serie = repository.QueryIncluding(s => s.MediaId == id, includes).SingleOrDefault();
+            serie.Generos = serie.Generos.Where(g => g.Activo == true).ToList();
+            serie.Actores = serie.Actores.Where(a => a.Status == true).ToList();
             var model = MapHelper.Map<EliminadoSerieViewModel>(serie);
 
             return View(model);
