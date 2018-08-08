@@ -26,12 +26,17 @@ namespace VideoOnDemand.Web.Controllers
             OpinionRepository repository = new OpinionRepository(context);
             UsuarioRepository repositoryUsuario = new UsuarioRepository(context);
             try{
+
+                var model = new OpinionViewModel();
                 var us = Session["UserId"] as string;
 
                 var media = repository.Query(t => t.MediaId == id).FirstOrDefault();
-                var model = MapHelper.Map<OpinionViewModel>(media);
-
-                var usuarios = repositoryUsuario.Query(u => u.IdentityId.Equals(us)).FirstOrDefault();
+                //var model = MapHelper.Map<OpinionViewModel>(media);
+                var usuarios = repositoryUsuario.Query(u => u.Id.Equals(us)).FirstOrDefault();
+                // model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
+                //model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+                model.Usuario = MapHelper.Map<UsuarioViewModel>(usuarios);
+                model.Media = MapHelper.Map<MediaViewModel>(media);
 
                 return View(model);
             }
