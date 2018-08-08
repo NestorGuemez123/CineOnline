@@ -76,9 +76,9 @@
                 <table id="pelicula" border="1">
                     <tr>
                         <th colspan="2">
-                            <h1 class="text-center">@item.Nombre</h1>
+                            <h3 class="text-center">@item.Nombre</h3>
                             <div class="caption text-center">
-                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.DuracionMin min</h5>
+                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @TimeSpan.FromMinutes(@item.DuracionMin)</h5>
                             </div>
                             Genero: &nbsp;
                             @foreach (var genero in item.Generos)

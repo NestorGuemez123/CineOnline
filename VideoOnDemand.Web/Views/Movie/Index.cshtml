@@ -1,10 +1,31 @@
-﻿@model IEnumerable<VideoOnDemand.Web.Models.MovieViewModel>
+﻿@model VideoOnDemand.Web.Models.PaginatorViewModel<VideoOnDemand.Web.Models.ThumbnailSerieViewModel>
 
 @{
-    ViewBag.Title = "Movies";
+    ViewBag.Title = "View";
 }
 
-<h2>Administrar movies</h2>
+<h2>Peliculas</h2>
+
+<p>
+    @using (Html.BeginForm())
+    {
+        <div class="form-inline">
+            <input type="text" id="page" name="page" value="1" hidden />
+
+            <div class="col-md-3">
+                <label>Nombre de la Pelicula</label>
+                <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
+            </div>
+
+            <div>
+                <br />
+                <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    }
+    <div><h1></h1></div>
+
+    <h2>Administrar movies</h2>
 
 <p>
     @Html.ActionLink("Crear nueva movie", "Create")
@@ -12,47 +33,53 @@
 <table class="table table-hover table-responsive">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombre)
+            Nombre
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.DuracionMin)
+            Duración (min)
         </th>
-       
+
         <th>
-            @Html.DisplayNameFor(model => model.FechaLanzamiento)
+           Fecha de lanzamiento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstadosMedia)
+            Estado para los usuarios
         </th>
-       
+
         <th>Acciones</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.DuracionMin)
-            min
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaLanzamiento)
-        </td>
+    @foreach (var item in Model.Results)
+    {
+        <tr>
+            <td>
+                @item.Nombre
+            </td>
 
-        <th>
-                @Html.DisplayFor(modelItem => item.EstadosMedia)           
-        </th>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MediaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MediaId })
-        </td>
-    </tr>
-}
+            <td>
+                @TimeSpan.FromMinutes(@item.DuracionMin)
+            </td>
 
-</table>
+            <td>
+                @item.FechaLanzamiento.Value.ToString("yyyy")
+            </td>
+            <td>
+                @item.EstadosMedia
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MediaId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MediaId })
+            </td>
+        </tr>
+    }
+    </table>
+
+
+    <h1></h1>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+

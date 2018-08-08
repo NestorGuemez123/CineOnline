@@ -125,6 +125,8 @@ namespace VideoOnDemand.Web.Models
         public int DuracionMin { get; set; }
         public string Descripcion { get; set; }
         public DateTime? FechaLanzamiento { get; set; }
+        //La agregue porque la necesitaba mi vista v:
+        public EEstatusMedia? EstadosMedia { get; set; }
 
         // Mantiene la lista de generos
         public ICollection<GeneroViewModel> Generos { get; set; }

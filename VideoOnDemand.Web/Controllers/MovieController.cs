@@ -14,7 +14,7 @@ namespace VideoOnDemand.Web.Controllers
     public class MovieController : BaseController
     {
         // GET: Movie
-        public ActionResult Index()
+        public ActionResult View()
         {
             MovieRepository repository = new MovieRepository(context);
             var lst = repository.Query(X=>X.EstadosMedia>0);
@@ -166,5 +166,29 @@ namespace VideoOnDemand.Web.Controllers
                 return View();
             }
         }
+
+        public ActionResult Index(int page = 1, string busqueda = null, int pageSize = 100)
+        {
+            MovieRepository movieRepository = new MovieRepository(context);
+            GeneroRepository generoRepository = new GeneroRepository(context);
+            var includes = new Expression<Func<Movie, object>>[] { s => s.Generos };
+            int totalDePaginas;
+            int totalDeFilas;
+            ICollection<Movie> movies;
+
+            movies = movieRepository.QueryPageByNombre(busqueda, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
+
+            ViewBag.Busqueda = busqueda;
+            
+            var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
+            paginador.Page = page;
+            paginador.PageSize = pageSize;
+            paginador.Results = MapHelper.Map<ICollection<ThumbnailSerieViewModel>>(movies);
+            paginador.TotalPages = totalDePaginas;
+            paginador.TotalRows = totalDeFilas;
+
+            return View(paginador);
+        }
+
     }
 }

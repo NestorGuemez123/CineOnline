@@ -112,6 +112,26 @@ namespace VideoOnDemand.Repositories
 
             return movies;
         }
+
+        public ICollection<Movie> QueryPageByNombre(string nombre, Expression<Func<Movie, object>>[] includes, out int totalPages, out int totalRows, string order, int page = 0, int pageSize = 10)
+        {
+            Expression<Func<Movie, bool>> where = s => true;
+            where = where.And(s => s.EstadosMedia == EEstatusMedia.VISIBLE);
+            where=where.Or (s => s.EstadosMedia == EEstatusMedia.INVISIBLE);
+
+            if (!String.IsNullOrEmpty(nombre))
+                where = where.And(s => s.Nombre.Contains(nombre));
+
+            int paginas;
+            int filas;
+
+            ICollection<Movie> movies = QueryPageIncluding(where, includes, out paginas, out filas, order, page, pageSize);
+
+            totalPages = paginas;
+            totalRows = filas;
+
+            return movies;
+        }
     }
 }
 
