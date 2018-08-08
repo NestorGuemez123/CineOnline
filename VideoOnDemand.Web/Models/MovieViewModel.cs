@@ -45,4 +45,18 @@ namespace VideoOnDemand.Web.Models
         public ICollection<Persona> Actores { get; set; }
         public ICollection<Opinion> Opiniones { get; set; }
     }
+
+    public class ThumbnailMovieViewModel
+    {
+        public int? MediaId { get; set; }
+        public string Nombre { get; set; }
+        public int DuracionMin { get; set; }
+        public string Descripcion { get; set; }
+        public DateTime? FechaLanzamiento { get; set; }
+        //La agregue porque la necesitaba mi vista v:
+        public EEstatusMedia? EstadosMedia { get; set; }
+
+        // Mantiene la lista de generos
+        public ICollection<GeneroViewModel> Generos { get; set; }
+    }
 }

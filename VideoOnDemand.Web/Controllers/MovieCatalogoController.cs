@@ -29,10 +29,10 @@ namespace VideoOnDemand.Web.Controllers
             ViewBag.Genero = genero;
             ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where(g => g != genero).ToList();
 
-            var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
+            var paginador = new PaginatorViewModel<ThumbnailMovieViewModel>();
             paginador.Page = page;
             paginador.PageSize = pageSize;
-            paginador.Results = MapHelper.Map<ICollection<ThumbnailSerieViewModel>>(movies);
+            paginador.Results = MapHelper.Map<ICollection<ThumbnailMovieViewModel>>(movies);
             paginador.TotalPages = totalDePaginas;
             paginador.TotalRows = totalDeFilas;
             
