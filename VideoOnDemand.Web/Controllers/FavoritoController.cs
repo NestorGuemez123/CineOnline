@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -57,6 +58,14 @@ namespace VideoOnDemand.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     FavoritoRepository repository = new FavoritoRepository(context);
+                    MediaRepository repository2 = new MediaRepository(context);
+                    UsuarioRepository repositori3 = new UsuarioRepository(context);
+                    var user = User.Identity.GetUserId();
+                    var usuarios = repositori3.Query(u => u.IdentityId.Equals(user)).First();
+                    var idMedia = repository2.Query(x => x.MediaId == id).First();
+                    model.media = idMedia;
+                    model.usuario = usuarios;
+                    //model.usuario = UsuariosId;
                     Favorito persona = MapHelper.Map<Favorito>(model);
                     repository.Insert(persona);
                     context.SaveChanges();
