@@ -58,7 +58,7 @@
                     {
                         <div class="checkbox">
                             <label>
-                                <input name="ActoresSeleccionados" type="checkbox" value="@item.Id.Value.ToString()"> @item.Name
+                                <input name="ActoresSeleccionados" oninvalid="alert" required type="checkbox" value="@item.Id.Value.ToString()"> @item.Name
                             </label>
                         </div>
                     }
