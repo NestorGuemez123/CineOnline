@@ -65,6 +65,7 @@ namespace VideoOnDemand.Data
             });
 
             media.HasMany(m => m.Opiniones).WithOptional(o => o.Media).HasForeignKey(o => o.MediaId);
+
             #endregion
 
             #region MapeoOpinion
