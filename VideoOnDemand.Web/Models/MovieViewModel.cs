@@ -28,6 +28,7 @@ namespace VideoOnDemand.Web.Models
 
         [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "La Fecha es requerida")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
 
@@ -37,7 +38,7 @@ namespace VideoOnDemand.Web.Models
         public ICollection<GeneroViewModel> GenerosDisponibles { get; set; }
         public int[] GenerosSeleccionados { get; set; }
 
-
+        
         public ICollection<PersonaViewModel> ActoresDisponibles { get; set; }
         public int[] ActoresSeleccionados { get; set; }
 
