@@ -113,7 +113,7 @@ namespace VideoOnDemand.Repositories
             return movies;
         }
 
-        public ICollection<Movie> QueryPageByNombre(string nombre, Expression<Func<Movie, object>>[] includes, out int totalPages, out int totalRows, string order, int page = 0, int pageSize = 10)
+        public ICollection<Movie> QueryPageByNombre(string nombre, Expression<Func<Movie, object>>[] includes, out int totalPages, out int totalRows, string order, int page = 0, int pageSize = 100)
         {
             Expression<Func<Movie, bool>> where = s => true;
             where = where.And(s => s.EstadosMedia == EEstatusMedia.VISIBLE);

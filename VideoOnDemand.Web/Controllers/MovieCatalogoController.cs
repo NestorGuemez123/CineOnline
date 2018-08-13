@@ -27,7 +27,7 @@ namespace VideoOnDemand.Web.Controllers
 
             ViewBag.Busqueda = busqueda;
             ViewBag.Genero = genero;
-            ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where(g => g != genero).ToList();
+            ViewBag.ListaGeneros = generoRepository.Query(x=>x.Activo==true).Select(g => g.Nombre).Where(g => g != genero).ToList();
 
             var paginador = new PaginatorViewModel<ThumbnailMovieViewModel>();
             paginador.Page = page;
@@ -48,6 +48,10 @@ namespace VideoOnDemand.Web.Controllers
 
 
             return View(model);            
+        }
+        public ActionResult Reproductor()
+        {
+            return View();
         }
     }
 }

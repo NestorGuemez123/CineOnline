@@ -9,6 +9,7 @@ namespace VideoOnDemand.Web.Models
     public class FavoritoViewModel
     {
         public int id { get; set; }
+
         public DateTime? FechaAgregado { get; set; }
         public int? usuarioId { get; set; }
         public Usuario usuario { get; set; }

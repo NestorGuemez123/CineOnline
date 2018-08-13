@@ -1,0 +1,22 @@
+﻿@model VideoOnDemand.Web.Models.MovieViewModel
+
+@{   
+    ViewBag.Title = "Video";
+}
+
+<body style="background-color:black">
+    <div class="container">
+        <h3>Mi Pelicula</h3>
+        <center>
+            <video id="MiVideo" controls width="600" height="400" @*autoplay*@>
+                <source src="~/Multimedia/Tiburon.mp4" type="video/mp4" />
+            </video>
+
+        </center>
+    </div>
+
+    <script>
+
+    </script> 
+</body>
+

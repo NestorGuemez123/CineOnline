@@ -20,29 +20,32 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Video On Demand!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                @Html.ActionLink("NETFLIX", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "OT", style = "color: red; font-size:30px;" })
+
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
+
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("Películas", "Index", "MovieCatalogo")</li>
                         <li>@Html.ActionLink("Series", "Index", "Serie")</li>
 
-                                    var user = User.Identity;
-                                    var context = new ApplicationDbContext();
-                                    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                                    var s = UserManager.GetRoles(user.GetUserId());
-                                    Session["UserId"] = user.GetUserId();
-                                    //si es admin mostrar el menu administrar
-                                    if (s[0].ToString() == "Admin")
-                                    {
+                        var user = User.Identity;
+                        var context = new ApplicationDbContext();
+                        var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                        var s = UserManager.GetRoles(user.GetUserId());
+                        Session["UserId"] = user.GetUserId();
+                        //si es admin mostrar el menu administrar
+                        if (s[0].ToString() == "Admin")
+                        {
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                                   aria-haspopup="true" 
-                                   aria-expanded="false">Cat&aacute;logos <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">Cat&aacute;logos<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Películas", "Index", "Movie")</li>
                                     <li>@Html.ActionLink("Series", "Index", "ManageSerie")</li>

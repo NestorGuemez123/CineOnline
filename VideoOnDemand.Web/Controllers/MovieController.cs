@@ -13,16 +13,6 @@ namespace VideoOnDemand.Web.Controllers
 {
     public class MovieController : BaseController
     {
-        // GET: Movie
-        public ActionResult View()
-        {
-            MovieRepository repository = new MovieRepository(context);
-            var lst = repository.Query(X=>X.EstadosMedia>0);
-            var models = MapHelper.Map<IEnumerable<MovieViewModel>>(lst);
-            return View(models);//No olvidar
-            
-        }
-
         // GET: Movie/Details/5
         public ActionResult Details(int id)
         {
