@@ -43,10 +43,16 @@ namespace VideoOnDemand.Web.Controllers
         public ActionResult Details(int id)
         {
             MovieRepository repository = new MovieRepository(context);
+            GeneroRepository GeneroRepository = new GeneroRepository(context);
+
             var movie = repository.Query(t => t.MediaId == id).First();
             var model = MapHelper.Map<MovieViewModel>(movie);
 
+            var generos = GeneroRepository.Query(g => g.Activo == true);
 
+            model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+            model.GenerosSeleccionados = movie.Generos.Select(g => g.GeneroId.Value).ToArray();
+            
             return View(model);            
         }
         public ActionResult Reproductor()
