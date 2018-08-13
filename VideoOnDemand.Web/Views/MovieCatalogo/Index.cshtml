@@ -78,7 +78,10 @@
                         <th colspan="2">
                             <h3 class="text-center">@item.Nombre</h3>
                             <div class="caption text-center">
-                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @TimeSpan.FromMinutes(@item.DuracionMin)</h5>
+                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") 
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 @TimeSpan.FromMinutes(@item.DuracionMin).ToString("%h") h @TimeSpan.FromMinutes(@item.DuracionMin).ToString("mm") min</h5>
                             </div>
                             Genero: &nbsp;
                             @foreach (var genero in item.Generos)

@@ -15,7 +15,6 @@ namespace VideoOnDemand.Web.Models
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "La descripcion es requerida")]
         public string Descripcion { get; set; }
     
         [DisplayName("Duración (min)")]
