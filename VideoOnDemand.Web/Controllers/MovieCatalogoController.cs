@@ -51,7 +51,6 @@ namespace VideoOnDemand.Web.Controllers
             var generos = GeneroRepository.Query(g => g.Activo == true);
 
             model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
-            model.GenerosSeleccionados = movie.Generos.Select(g => g.GeneroId.Value).ToArray();
             
             return View(model);            
         }
