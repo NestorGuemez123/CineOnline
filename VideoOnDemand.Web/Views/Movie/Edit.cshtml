@@ -83,11 +83,13 @@
                                 {
                                     seleccionado = "checked";
                                 }
+
                             }
+
 
                             <div class="checkbox">
                                 <label>
-                                    <input name="ActoresSeleccionados" type="checkbox" value="@item.Id.Value.ToString()" @seleccionado> @item.Name
+                                    <input name="ActoresSeleccionados" required type="checkbox" value="@item.Id.Value.ToString()" @seleccionado> @item.Name
                                 </label>
                             </div>
                         }
@@ -117,7 +119,7 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input name="GenerosSeleccionados" type="checkbox" value="@item.GeneroId.Value.ToString()" @seleccionado> @item.Nombre
+                                    <input name="GenerosSeleccionados" required type="checkbox" value="@item.GeneroId.Value.ToString()" @seleccionado> @item.Nombre
                                 </label>
                             </div>
                         }

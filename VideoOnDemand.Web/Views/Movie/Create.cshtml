@@ -51,7 +51,7 @@
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Actores</h3>
+                    <h3 id="ActoresHead" class="panel-title">Actores</h3>
                 </div>
                 <div class="panel-body">
                     @foreach (var item in Model.ActoresDisponibles)
@@ -75,7 +75,7 @@
                     {
                         <div class="checkbox">
                             <label>
-                                <input name="GenerosSeleccionados" type="checkbox" value="@item.GeneroId.Value.ToString()"> @item.Nombre
+                                <input name="GenerosSeleccionados" required type="checkbox" value="@item.GeneroId.Value.ToString()"> @item.Nombre
                             </label>
                         </div>
                     }
