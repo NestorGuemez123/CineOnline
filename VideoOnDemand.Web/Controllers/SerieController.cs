@@ -27,11 +27,10 @@ namespace VideoOnDemand.Web.Controllers
             ICollection<Serie> series;
 
 
-            series = serieRepository.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);       
-            
+            series = serieRepository.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
             ViewBag.Busqueda = busqueda;
             ViewBag.Genero = genero;
-            ViewBag.ListaGeneros = generoRepository.GetAll().Select(g => g.Nombre).Where( g=> g != genero).ToList();
+            ViewBag.ListaGeneros = generoRepository.Query(g=>g.Activo==true).Select(g => g.Nombre).Where( g=> g != genero).ToList();
 
             var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
             paginador.Page = page;
