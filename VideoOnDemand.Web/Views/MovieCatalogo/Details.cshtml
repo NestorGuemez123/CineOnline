@@ -34,7 +34,12 @@
     <tr><td width="600">Generos: @Html.DisplayFor(model => model.Generos)</td></tr>
     <tr><td width="600">Actores: @Html.DisplayFor(model => model.Actores)</td></tr>   
     <tr>
-        <th rowspan="3"><a>@Html.ActionLink("+ Agregar a favorito", "Create", "Favorito", new { id = Model.MediaId }, null)</a></th>       
+        <th rowspan="3"><a>
+    <form id="MetodoLlamar"method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
+        <input type="submit" form="MetodoLlamar"/>
+    </form>
+</a></th>       
+
         <td>
             <h7 class="card-title"><a href="~/MovieCatalogo/Reproductor">Reproducir</a></h7>
         </td>

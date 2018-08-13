@@ -61,10 +61,12 @@ namespace VideoOnDemand.Web.Controllers
                     MediaRepository repository2 = new MediaRepository(context);
                     UsuarioRepository repositori3 = new UsuarioRepository(context);
                     var user = User.Identity.GetUserId();
+                    var dia = DateTime.Now;
                     var usuarios = repositori3.Query(u => u.IdentityId.Equals(user)).First();
                     var idMedia = repository2.Query(x => x.MediaId == id).First();
                     model.media = idMedia;
                     model.usuario = usuarios;
+                    model.FechaAgregado = dia;
                     //model.usuario = UsuariosId;
                     Favorito persona = MapHelper.Map<Favorito>(model);
                     repository.Insert(persona);
