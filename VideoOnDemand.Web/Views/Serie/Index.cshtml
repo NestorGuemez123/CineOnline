@@ -83,7 +83,9 @@
             <div class="panel-footer" style="height:auto">
                 <div class="row">
                     <div class="pull-left">
-                        <a href="" class="btn btn-primary" role="button" value="http://localhost:62225/Favorito/Create">Mi lista</a>
+                        <form method="post" action='@Url.Action("Create", "Favorito", new { id = serie.MediaId }, null)'>
+                            <input type="submit" value="Agregar" />
+                        </form>
                     </div>
 
                     <div class="pull-right">
