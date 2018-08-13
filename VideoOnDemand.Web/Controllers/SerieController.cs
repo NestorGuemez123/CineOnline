@@ -46,73 +46,21 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Serie/Details/5
         public ActionResult Details(int id)
         {
-            return View();
-        }
+            #region Repositorios necesarios
+            SerieRepository serieRepository = new SerieRepository(context);
+            #endregion
 
-        // GET: Serie/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            #region Consulta la serie en la bd
+            var relaciones = new Expression<Func<Serie, object>>[] { s => s.Generos, s => s.Actores, s => s.Opiniones.Select(o => o.Usuario) };
+            Serie serie = serieRepository.QueryIncluding(s => s.MediaId == id, relaciones, "FechaRegistro").SingleOrDefault();
+            
+            #endregion
 
-        // POST: Serie/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+            #region Mapeo de la serie con su view model adecuado
+            var model = MapHelper.Map<CompletoSerieViewModel>(serie);
+            #endregion
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Serie/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Serie/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Serie/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Serie/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model VideoOnDemand.Web.Models.CompletoSerieViewModel
+
+
+
+    <!-- Información general de la serie y fotografia -->
+    <div class="row">
+        <div class="col-md-5">
+
+        </div>
+        <div class="col-md-7">
+            <h3>@Model.Nombre ( @Model.FechaLanzamiento.Value.Year )</h3>
+            <p>Temporada: <span id="temporada"></span></p>
+            <p>Descripción: @Model.Descripcion</p>
+
+            <p>
+                Géneros:
+                @foreach (var genero in Model.Generos)
+                {
+                    <span class="badge">@genero.Nombre</span>
+                }
+            </p>
+
+            <p>
+                Actores:
+                @foreach (var actor in Model.Actores)
+                {
+                    <span class="badge">@actor.Name</span>
+                }
+            </p>
+
+            <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Mi lista</a>
+
+        </div>
+    </div>
+
+    <hr />
+
+    @Html.Partial("_OpinionList", Model.Opiniones)
+

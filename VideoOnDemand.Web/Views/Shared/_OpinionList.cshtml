@@ -1,0 +1,67 @@
+﻿@model ICollection<VideoOnDemand.Web.Models.OpinionViewModel>
+
+<div class="container-fluid">
+    <p><span id="numeroReseñas">4</span> reseñas</p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Mi reseña</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <textarea id="opinion" name="opinion" class="form-control" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
+                        </div>
+                        <button id="botonRegistrarOpinion" name="botonRegistrarOpinion" type="button" class="btn btn-default">Agregar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var opinion in Model)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="media">
+                            <a class="pull-left" href="">
+                                <img class="media-object" src="..." alt="...">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    @opinion.Usuario.Nombre - @opinion.FechaRegistro
+                                    @for (int estrella = 0; estrella < opinion.Puntuacion; estrella++)
+                                    {
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    }
+                                </h4>
+                                @opinion.Descripcion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+
+        $(function () {
+            $("#botonRegistrarOpinion").on("click", function () {
+                var id = User.Identity.GetUserId();
+                var opinion = $("#opinion")
+                alert("Esta funcionando");
+                //registrarOpinion({ userId: id, userOpinion: opinion});
+            });
+        });
+
+        
+    </script>
+
+}

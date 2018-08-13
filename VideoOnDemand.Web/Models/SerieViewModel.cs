@@ -8,6 +8,8 @@ using VideoOnDemand.Entities;
 
 namespace VideoOnDemand.Web.Models
 {
+    /*-------------View models usados para el administrador--------------*/
+
     public class SerieViewModel
     {
         public int? MediaId { get; set; }
@@ -33,12 +35,13 @@ namespace VideoOnDemand.Web.Models
     public class NuevoSerieViewModel
     {
         [Required(ErrorMessage = "El nombre es requerido")]
+        [MaxLength(100,ErrorMessage = "El nombre debe ser menor o igual a 100 caracteres")]
         public string Nombre { get; set; }
+
+        [MaxLength(500,ErrorMessage ="La descripción debe ser menor o igual a 500 caracteres")]
         public string Descripcion { get; set; }
 
-        [DisplayName("Duracion (min)")]
-        public int? DuracionMin { get; set; }
-
+        [Required(ErrorMessage = "La fecha de lanzamiento es requerida")]
         [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -47,11 +50,15 @@ namespace VideoOnDemand.Web.Models
         // Mantiene la lista de generos completa
         public ICollection<GeneroViewModel> GenerosDisponibles { get; set; }
         // Mantiene los generos que seleccione el administrador
-        public int[] GenerosSeleccionados { get; set; }
 
+        [Required]
+        public int[] GenerosSeleccionados { get; set; }
+         
         // Mantiene la lista de actores completa
         public ICollection<PersonaViewModel> ActoresDisponibles { get; set; }
         // Mantiene los generos que seleccione el administrador
+
+        [Required]
         public int[] ActoresSeleccionados { get; set; }
 
     }
@@ -59,21 +66,28 @@ namespace VideoOnDemand.Web.Models
     public class ModificadoSerieViewModel
     {
         public int? MediaId { get; set; }
+
         [Required(ErrorMessage = "El nombre es requerido")]
+        [MaxLength(100, ErrorMessage = "El nombre debe ser menor o igual a 100 caracteres")]
         public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "La descripción es requerida")]
+        [MaxLength(500, ErrorMessage = "La descripción debe ser menor o igual a 500 caracteres")]
         public string Descripcion { get; set; }
 
+        [Required(ErrorMessage = "La duración es requerida")]
         [DisplayName("Duracion (min)")]
         public int? DuracionMin { get; set; }
        
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaRegistro { get; set; }
 
+        [Required(ErrorMessage = "La fecha de lanzamiento es requerida")]
         [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
 
+        [Required(ErrorMessage = "El estado para los usuarios es requerido")]
         [DisplayName("Estado para los usuarios")]
         public EEstatusMedia? EstadosMedia { get; set; }
 
@@ -118,6 +132,10 @@ namespace VideoOnDemand.Web.Models
         public ICollection<PersonaViewModel> Actores { get; set; }
     }
     
+    /*-------------View models usados para el usuario--------------*/
+
+    //El view model que se usa para el usuario en la vista Index del SerieController
+    //Muestra los datos basicos de una serie
     public class ThumbnailSerieViewModel
     {
         public int? MediaId { get; set; }
@@ -125,11 +143,31 @@ namespace VideoOnDemand.Web.Models
         public int DuracionMin { get; set; }
         public string Descripcion { get; set; }
         public DateTime? FechaLanzamiento { get; set; }
-        //La agregue porque la necesitaba mi vista v:
-        public EEstatusMedia? EstadosMedia { get; set; }
-
+        
         // Mantiene la lista de generos
         public ICollection<GeneroViewModel> Generos { get; set; }
     }
 
+
+    /// <summary>
+    /// Representa una serie detallada con datos generales, actores, generos y opiniones.
+    /// Se usa para el usuario y corresponde a la vista Details del SerieController.
+    /// </summary>
+    public class CompletoSerieViewModel
+    {
+        public int? MediaId { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public int? DuracionMin { get; set; }
+        public DateTime? FechaLanzamiento { get; set; }
+
+        // Mantiene la lista de generos
+        public ICollection<GeneroViewModel> Generos { get; set; }
+
+        // Mantiene la lista de actores
+        public ICollection<PersonaViewModel> Actores { get; set; }
+
+        public ICollection<OpinionViewModel> Opiniones { get; set; }
+
+    }
 }
