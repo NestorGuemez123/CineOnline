@@ -9,9 +9,9 @@
     <title>@ViewBag.Title - Video On Demand!</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link href="~/CSS/Netflix.css" rel="stylesheet" />
 </head>
-<body>
+<body class="fondoNetflix">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("NETFLIX", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "OT", style = "color: red; font-size:30px;" })
+                @Html.ActionLink("NETFLIX", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "logoNetflix"})
 
 
             </div>
@@ -30,7 +30,6 @@
 
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("Películas", "Index", "MovieCatalogo")</li>
                         <li>@Html.ActionLink("Series", "Index", "Serie")</li>
 

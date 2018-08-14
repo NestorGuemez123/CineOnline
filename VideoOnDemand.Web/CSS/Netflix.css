@@ -1,8 +1,12 @@
-﻿body 
-
+﻿/*Estilo para toda interfaz*/
 .fondoNetflix
-{
+{   
     background-color:black;
-    color:white;
-}                
+}  
+
+#logoNetflix
+{
+    color:red;
+    font-size:30px;
+}              
 
