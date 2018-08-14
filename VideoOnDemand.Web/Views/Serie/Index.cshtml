@@ -69,7 +69,7 @@
                 </div>
                 <div class="row">
                     Genero:
-                    @foreach (var genero in serie.Generos)
+                    @foreach (var genero in serie.Generos.Where(g=>g.Activo==true))
                     {
                         <span class="badge">@genero.Nombre</span>
                     }

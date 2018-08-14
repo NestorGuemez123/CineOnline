@@ -15,5 +15,12 @@ namespace VideoOnDemand.Repositories
         {
 
         }
+
+        public void GenerosActivos()
+        {
+            var generosActivos = from ga in _context.Generos
+                                 where ga.Activo == true
+                                 select ga;
+        }
     }
 }

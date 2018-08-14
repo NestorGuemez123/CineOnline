@@ -4,29 +4,22 @@
     ViewBag.Title = "Video";
 }
 
-<div class="container">
-    <h2>Video</h2>
-    <h3>Mi Pelicula</h3>
-    <button class="btn-success" onclick="Ampliar()">Ampliar</button>
-    <button class="btn-primary" onclick="Normal()">Normal</button>
-    <center>
-        <video id="MiVideo" controls width="600" height="400" autoplay >
-            <source src="~/Multimedia/Tiburon.mp4" type="video/mp4" />
-        </video>
-        
-    </center>
-</div>
+<body style="background-color:black">
+    <div class="container">
+        <h3>Mi Pelicula</h3>
+        <center>
+            <video id="myVideo" poster="~/Multimedia/luis.jpg" preload="auto"  controls width="600" height="400" autoplay >
+                <source src="~/Multimedia/Tiburon.mp4" type="video/mp4" />
+            </video>
+        </center>
+    </div>
 
-<script>
-
-var myVideo = document.getElementById("MiVideo");
-
-function Ampliar() {
-    myVideo.width = 700;
-}
-
-function Normal() {
-    myVideo.width = 600;
-}
-</script> 
+    <script>
+        $(document).ready(function () {
+            $("#myVideo").on('ended', function () {
+                alert('El video ha finalizado!!!');
+            });
+        });
+    </script> 
+</body>
 
