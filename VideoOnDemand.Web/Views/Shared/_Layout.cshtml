@@ -32,7 +32,7 @@
                     {
                         <li>@Html.ActionLink("Películas", "Index", "MovieCatalogo")</li>
                         <li>@Html.ActionLink("Series", "Index", "Serie")</li>
-
+                        <li>@Html.ActionLink("Mi Lista", "Index", "Favorito")</li>
                         var user = User.Identity;
                         var context = new ApplicationDbContext();
                         var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -42,7 +42,7 @@
                         if (s[0].ToString() == "Admin")
                         {
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true"
                                    aria-expanded="false">Cat&aacute;logos<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
