@@ -45,9 +45,15 @@ namespace VideoOnDemand.Data
 
             #region MapeoMedia
             var media = modelBuilder.Entity<Media>();
-            media.HasKey(i => i.MediaId);
-            media.Property(i => i.MediaId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            media.Property(i => i.Descripcion).HasMaxLength(500).IsOptional();
+            media.HasKey(i => i.MediaId); //La PK es MediaId
+            media.Property(i => i.MediaId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity); //La PK es autoincremental
+            media.Property(i => i.Nombre).HasMaxLength(100).IsRequired(); //Longitud maxima de 100 caracteres
+            media.Property(i => i.Descripcion).HasMaxLength(500).IsOptional(); //Longitud maxima de 500 caracteres
+            media.Property(i => i.DuracionMin).IsRequired();
+            media.Property(i => i.FechaRegistro).IsRequired();
+            media.Property(i => i.FechaLanzamiento).IsRequired();
+            media.Property(i => i.EstadosMedia).IsRequired();
+
 
             media.HasMany<Genero>(g => g.Generos).WithMany(m => m.Medias).Map(gm =>
             {
@@ -108,7 +114,7 @@ namespace VideoOnDemand.Data
             episodio.HasRequired(e => e.Serie)
                 .WithMany()
                 .HasForeignKey(e => e.SerieId);
-
+            episodio.Property(e => e.Temporada).IsRequired();
             episodio.ToTable("Episodios"); //Mapea la herencia desde Media, crea una tabla sola para Episodios
 
             #endregion

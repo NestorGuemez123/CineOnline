@@ -53,6 +53,7 @@ namespace VideoOnDemand.Web.Controllers
                     var serie = MapHelper.Map<Serie>(model);
                     serie.EstadosMedia = EEstatusMedia.VISIBLE;
                     serie.FechaRegistro = DateTime.Now;
+                    serie.DuracionMin = 0;
                     serieRepository.InsertComplete(serie, model.ActoresSeleccionados, model.GenerosSeleccionados);
 
                     // Guardar y registrar cambios
@@ -62,13 +63,21 @@ namespace VideoOnDemand.Web.Controllers
                 }
                 else
                 {
+                    PersonaRepository personaRepository = new PersonaRepository(context);
+                    GeneroRepository generoRepository = new GeneroRepository(context);
+
+                    var actores = personaRepository.Query(a => a.Status == true);
+                    var generos = generoRepository.Query(g => g.Activo == true);
+                    model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
+                    model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+
                     return View(model);
                 }
 
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", e.Message);
+                ModelState.AddModelError("ActoresSeleccionados", e.Message);
                 return View();
             }
         }
@@ -76,24 +85,29 @@ namespace VideoOnDemand.Web.Controllers
         // GET: ManageSerie/Edit/5
         public ActionResult Edit(int id)
         {
+            //Repositorios necesarios 
             var repository = new SerieRepository(context);
             var personaRepository = new PersonaRepository(context);
             var generoRepository = new GeneroRepository(context);
 
-            // Expresión lambda para incluir las relaciones (No hay carga perezosa)
+            // Expresión lambda para incluir las relaciones con actores y generos (No hay carga perezosa)
             var includes = new Expression<Func<Serie, object>>[] { s => s.Actores, s => s.Generos };
 
+            //Creacion del modelo de la consulta obtenida
             var serie = repository.QueryIncluding(s => s.MediaId == id, includes).SingleOrDefault();
             var model = MapHelper.Map<ModificadoSerieViewModel>(serie);
 
+            //Obtención de todos los actores y generos disponibles
             var actores = personaRepository.Query(a => a.Status == true);
             var generos = generoRepository.Query(g => g.Activo == true);
+
+            //Establecimiento de los actores y generos que tiene nuestra serie
             model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
             model.ActoresSeleccionados = serie.Actores.Select(a => a.Id.Value).ToArray();
             model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
             model.GenerosSeleccionados = serie.Generos.Select(g => g.GeneroId.Value).ToArray();
 
-            return View(model);
+            return View(model); //Llama a la vista de edición y le pasa el modelo de la serie
         }
 
         // POST: ManageSerie/Edit/5
@@ -154,11 +168,19 @@ namespace VideoOnDemand.Web.Controllers
 
             try
             {
+                EpisodioRepository episodioRepository = new EpisodioRepository(context);
+ 
                 var serie = repository.Find(id);
+                var episodios = episodioRepository.Query(e => e.SerieId == id);
                 serie.EstadosMedia = EEstatusMedia.ELIMINADO;
                 repository.Update(serie);
-                context.SaveChanges();
+                foreach (var episodio in episodios)
+                {
+                    episodio.EstadosMedia = EEstatusMedia.ELIMINADO;
+                    episodioRepository.Update(episodio);
+                }
 
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 

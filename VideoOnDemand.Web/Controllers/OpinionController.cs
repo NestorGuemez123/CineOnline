@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using VideoOnDemand.Entities;
@@ -13,67 +15,46 @@ namespace VideoOnDemand.Web.Controllers
 {
     public class OpinionController : BaseController
     {
-        // GET: Opinion
-        public ActionResult Index()
-        {   
-            OpinionRepository repository = new OpinionRepository(context);
-            var lst = repository.GetAll();
-            var models = MapHelper.Map<IEnumerable<OpinionViewModel>>(lst);
-
-            return View(models);
-        }
-        // GET: Opinion/Create
-        public ActionResult Create(int? id)
-        {
-            OpinionRepository repository = new OpinionRepository(context);
-            UsuarioRepository repositoryUsuario = new UsuarioRepository(context);
-            try{
-                var us = Session["UserId"] as string;
-
-                var media = repository.Query(t => t.MediaId == id).First();
-                var model = MapHelper.Map<OpinionViewModel>(media);
-
-                return View(model);
-            }
-            catch(Exception ex)
-            {
-
-            }
-            return View();
-        }
-
-        // POST: Opinion/Create
         [HttpPost]
-        public ActionResult Create(int? id, OpinionViewModel model)
+        public ActionResult Registrar(OpinionViewModel model)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    OpinionRepository repoOpinion = new OpinionRepository(context);
-                    MediaRepository repoMedia = new MediaRepository(context);
-                    UsuarioRepository repoUser = new UsuarioRepository(context);
-                    var user = User.Identity.GetUserId();
-                    var dia = DateTime.Now;
-                    var usuarios = repoUser.Query(u => u.IdentityId.Equals(user)).First();
-                    var IdMedia = repoMedia.Query(m => m.MediaId == id).First();
-                    model.media = IdMedia;
-                    model.usuario = usuarios;
-                    model.FechaRegistro = dia;
 
-                    Opinion opinion = MapHelper.Map<Opinion>(model);
-                    repoOpinion.Insert(opinion);
-                    context.SaveChanges();
-                    
-                }
-                return RedirectToAction("Index");
-                           
-            }
-            catch (Exception ex)
+            UsuarioRepository usuarioRepository = new UsuarioRepository(context);
+            var usuarioIdentirty = User.Identity.GetUserId();
+            var usuarioId = usuarioRepository.Query(u => u.IdentityId == usuarioIdentirty).Select(u => u.Id).SingleOrDefault();
+            model.UsuarioId = usuarioId;
+            model.FechaRegistro = DateTime.Now;
+
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View();
+                OpinionRepository opinionRepository = new OpinionRepository(context);
+                var opinion = MapHelper.Map<Opinion>(model);
+                opinionRepository.Insert(opinion);
+                context.SaveChanges();
+                return Json(new
+                {
+                    Success = true
+                }, JsonRequestBehavior.AllowGet);
             }
+            else
+                return Json(new
+                {
+                    Success = false
+                }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Consultar(int id)
+        {
+            OpinionRepository opinionRepository = new OpinionRepository(context);
+            var relaciones = new Expression<Func<Opinion, object>>[] {o => o.Usuario };
+            var Opiniones = opinionRepository.QueryIncluding(o => o.MediaId == id, relaciones, "FechaRegistro");
+
+            return Json(new
+            {
+                Success = true,
+                Opiniones = JsonConvert.SerializeObject(Opiniones)
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
