@@ -1,39 +1,149 @@
 ﻿@model VideoOnDemand.Web.Models.CompletoSerieViewModel
+<!-- Información general de la serie y fotografia -->
+<div class="row">
+    <div class="col-md-5">
 
+    </div>
+    <div class="col-md-7">
+        <h3>@Model.Nombre ( @Model.FechaLanzamiento.Value.Year )</h3>
+        <p>Temporada: <span id="temporada"></span></p>
+        <p>Descripción: @Model.Descripcion</p>
 
+        <p>
+            Géneros:
+            @foreach (var genero in Model.Generos)
+            {
+                <span class="badge">@genero.Nombre</span>
+            }
+        </p>
 
-    <!-- Información general de la serie y fotografia -->
+        <p>
+            Actores:
+            @foreach (var actor in Model.Actores)
+            {
+                <span class="badge">@actor.Name</span>
+            }
+        </p>
+
+        <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Mi lista</a>
+
+    </div>
+</div>
+
+<hr />
+
+<div class="container-fluid">
+    <p><span id="numeroReseñas">4</span> reseñas</p>
     <div class="row">
-        <div class="col-md-5">
-
-        </div>
-        <div class="col-md-7">
-            <h3>@Model.Nombre ( @Model.FechaLanzamiento.Value.Year )</h3>
-            <p>Temporada: <span id="temporada"></span></p>
-            <p>Descripción: @Model.Descripcion</p>
-
-            <p>
-                Géneros:
-                @foreach (var genero in Model.Generos)
-                {
-                    <span class="badge">@genero.Nombre</span>
-                }
-            </p>
-
-            <p>
-                Actores:
-                @foreach (var actor in Model.Actores)
-                {
-                    <span class="badge">@actor.Name</span>
-                }
-            </p>
-
-            <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Mi lista</a>
-
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Mi reseña</div>
+                <div class="panel-body">
+                    <form id="formularioOpinion">
+                        <input type="text" id="serieId" name="serieId" value="@Model.MediaId" hidden />
+                        <div class="form-group">
+                            <textarea id="opinion" name="opinion" class="form-control" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
+                        </div>
+                        <button onClick="validarOpinion(formularioOpinion)" id="btnRegistrarOpinion" name="btnRegistrarOpinion" type="button" class="btn btn-default">Agregar</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <hr />
+    <div id="listaOpiniones">
 
-    @Html.Partial("_OpinionList", Model.Opiniones)
+    </div>
+</div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            consultar($("#serieId").val());
+        });
+    
+    function validarOpinion(datos) {
+        if (datos.opinion.value != "") {
+            registrarOpinion(datos);
+            consultar(datos.serieId.value);
+        }
+    }
+
+
+    function registrarOpinion(datos) {
+
+        var opinion = {
+            MediaId: datos.serieId.value,
+            Descripcion: datos.opinion.value,
+            UsuarioId: null,
+            FechaRegistro: null,
+            Puntuacion: 4 //Aqui se debe de modificar la puntuacion
+        };
+
+        $.ajax({
+            url: '@Url.Action("Registrar", "Opinion")',
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: "application/json",
+            data: JSON.stringify(opinion),
+            success: function (data) {
+                if (data.Success) {
+                    alert("Se registro la opinion");                   
+                } else {
+                    alert("No se registro la opinion");
+                }
+            }
+        });
+    }
+
+    function consultar(serieId) {
+        $.ajax({
+            url: '@Url.Action("Consultar", "Opinion")' + '/' + serieId,
+                type: 'GET',
+                dataType: 'JSON',
+                data: null,
+                success: function (data) {
+                    if (data.Success) {
+                        //Convierto la cadena JSON a objeto JS
+                        var opiniones = JSON.parse(data.Opiniones);
+
+                        //Quita lo que este dentro del div
+                        $("#listaOpiniones").empty();
+
+                        //Escribe de nuevo las opiniones
+                        for (i = 0; i < opiniones.length; i++) {
+                            var opinion = opiniones[i];
+                            var html = "";
+                            html += "<div class='row'>";
+                            html += "<div class='col-md-12'>";
+                            html += "<div class='panel panel-default'>";
+                            html += "<div class='panel-body'>";
+                            html += "<div class='media'>";
+                            html += "<a class='pull-left' href=''>";
+                            html += "<img width='64px' class='media-object img-circle' src='/Multimedia/FotoPerfil2.jpg' alt='...'>";
+                            html += "</a>";
+                            html += "<div class='media-body'>";
+                            html += "<h4 class='media-heading'>";
+                            html += opinion.Usuario.Nombre + " - " + opinion.FechaRegistro;
+                            for (estrella = 0; estrella < opinion.Puntuacion; estrella++) {
+                                html += "<span class='glyphicon glyphicon-star'></span>";
+                            }
+                            html += "</h4>";
+                            html += opinion.Descripcion;
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</div>";
+
+                            $("#listaOpiniones").append(html);
+                        }
+                    }
+                }
+            });
+    }
+    </script>
+    
+}

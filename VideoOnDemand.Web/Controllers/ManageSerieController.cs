@@ -168,11 +168,19 @@ namespace VideoOnDemand.Web.Controllers
 
             try
             {
+                EpisodioRepository episodioRepository = new EpisodioRepository(context);
+ 
                 var serie = repository.Find(id);
+                var episodios = episodioRepository.Query(e => e.SerieId == id);
                 serie.EstadosMedia = EEstatusMedia.ELIMINADO;
                 repository.Update(serie);
-                context.SaveChanges();
+                foreach (var episodio in episodios)
+                {
+                    episodio.EstadosMedia = EEstatusMedia.ELIMINADO;
+                    episodioRepository.Update(episodio);
+                }
 
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 

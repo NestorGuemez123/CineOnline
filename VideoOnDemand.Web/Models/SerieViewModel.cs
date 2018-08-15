@@ -167,7 +167,5 @@ namespace VideoOnDemand.Web.Models
         // Mantiene la lista de actores
         public ICollection<PersonaViewModel> Actores { get; set; }
 
-        public ICollection<OpinionViewModel> Opiniones { get; set; }
-
     }
 }
