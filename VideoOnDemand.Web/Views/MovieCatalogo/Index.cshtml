@@ -5,7 +5,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Peliculas</h2>
+<h2>Películas</h2>
 
 <p>
         @using (Html.BeginForm())
@@ -14,17 +14,12 @@
                 <input type="text" id="page" name="page" value="1" hidden />
 
                 <div class="col-md-3">
-                    <label>Nombre de la Pelicula</label>
+                    <label>Nombre de la Película</label>
                     <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
                 </div>
 
-                <div class="col-md-2">
-                    <label>Peliculas por pagina</label>
-                    <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
-                </div>
-
                 <div class="col-md-3">
-                    <label>Genero de la Pelicula</label>
+                    <label>Genero de la Película</label>
                     <select id="genero" name="genero" class="form-control">
                         @if (String.IsNullOrEmpty(ViewBag.Genero))
                         {
@@ -41,6 +36,10 @@
                             <option value="@genero">@genero</option>
                         }
                     </select>
+                </div>
+                <div class="col-md-2">
+                    <label>Películas por pagina</label>
+                    <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
                 </div>
                 <div>
                     <br />

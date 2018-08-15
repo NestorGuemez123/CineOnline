@@ -157,9 +157,11 @@ namespace VideoOnDemand.Web.Controllers
             }
         }
 
+
         public ActionResult Index(int page = 1, string busqueda = null, int pageSize = 100)
         {
             MovieRepository movieRepository = new MovieRepository(context);
+
             GeneroRepository generoRepository = new GeneroRepository(context);
             var includes = new Expression<Func<Movie, object>>[] { s => s.Generos };
             int totalDePaginas;
@@ -170,10 +172,10 @@ namespace VideoOnDemand.Web.Controllers
 
             ViewBag.Busqueda = busqueda;
             
-            var paginador = new PaginatorViewModel<ThumbnailSerieViewModel>();
+            var paginador = new PaginatorViewModel<ThumbnailMovieViewModel>();
             paginador.Page = page;
             paginador.PageSize = pageSize;
-            paginador.Results = MapHelper.Map<ICollection<ThumbnailSerieViewModel>>(movies);
+            paginador.Results = MapHelper.Map<ICollection<ThumbnailMovieViewModel>>(movies);
             paginador.TotalPages = totalDePaginas;
             paginador.TotalRows = totalDeFilas;
 
