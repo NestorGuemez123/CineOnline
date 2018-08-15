@@ -69,46 +69,15 @@
 </style>
 
 <div class="row">
-    @foreach (var item in Model.Results)
-    { 
-        <div class="col">
-            <div class="col-lg-3">
-                <table id="pelicula" border="1">
-                    <tr>
-                        <th colspan="2">
-                            <h3 class="text-center">@item.Nombre</h3>
-                            <div class="caption text-center">
-                                <h5 class="card-title">@item.FechaLanzamiento.Value.ToString("yyyy") 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 @TimeSpan.FromMinutes(@item.DuracionMin).ToString("%h") h @TimeSpan.FromMinutes(@item.DuracionMin).ToString("mm") min</h5>
-                            </div>
-                            Genero: &nbsp;
-                            @foreach (var genero in item.Generos)
-                            {
-                                <nosalto>@genero.Nombre</nosalto>
-                            }
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <div>Descripcion:</div>
-                            <h6 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h6>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h7 class="card-title"><a>+ Mi Lista</a></h7>
-                        </td>
-                        <td>
-                            @Html.ActionLink("Detalles", "Details", new { id = item.MediaId })
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            </div>
+    @foreach (var serie in Model.Results)
+    {
+        <div class="col-md-4" style="padding:2px">
+            <a href='@Url.Action("Details", "MovieCatalogo", new {id =serie.MediaId })'>
+                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@serie.Nombre">
+            </a>
+        </div>
     }
 </div>
-<h1></h1>
 
 @Html.Partial("_Paginator")
 

@@ -9,40 +9,10 @@
 <div class="row">
     @foreach (var serie in Model)
     {
-        <div class="col-md-4">
-            <div class="panel panel-default" style="height:250px;">
-                <div class="panel-heading">
-                    <h3>@serie.media.Nombre</h3>
-                    <div class="row">
-                        <div class="pull-left">
-                            @serie.media.FechaLanzamiento
-                        </div>
-                        <div class="pull-right">
-                            @serie.media.DuracionMin min
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel-body">
-                    <p>Descripcion: @serie.media.Descripcion</p>
-                </div>
-
-                <div class="panel-footer">
-                    <div class="row">
-                        <a>
-                            <form id="MetodoLlamar" method="post" action='@Url.Action("Delete", "Favorito", new { id = serie.id}, null)'>
-                                <button type="submit" class="btn btn-primary" value="" aria-label="Left Align">
-                                    <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span> Eliminar
-                                </button>
-                            </form>
-                        </a>
-                        </div>
-                        <div class="pull-right">
-                            <a href="" class="btn btn-primary" role="button">Detalles</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <div class="col-md-4" style="padding:2px">
+            <a href='@Url.Action("Details", "MovieCatalogo", new {id = serie.mediaId })'>
+                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@serie.media.Nombre">
+            </a>
+        </div>
     }
 </div>

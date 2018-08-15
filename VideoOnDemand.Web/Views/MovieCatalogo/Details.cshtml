@@ -4,11 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalles</h2>
-
-
-    <h4>@Html.DisplayFor(model => model.Nombre)</h4>
-
 <style>
     td#mio {
         width: 200px;
@@ -25,6 +20,20 @@
     width: 670px;
     margin: 0;
     padding-left: 10px;
+    }
+
+    .Nombre {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        line-height: 1.3;
+        margin: 0 0 .2em 0;
+        font-weight: 700;
+        color: #fff;
+        font-size: 3vw;
+        width: 670px;
+        margin: 0;
+        padding-left: 10px;
     }
     fechTiempo{
 position: relative;
@@ -50,6 +59,16 @@ position: relative;
     margin-bottom: .8em;
     padding:50px;
 
+    }
+    .fech {
+        position: relative;
+        color: #46d369;
+        font-size: 1.1vw;
+        height: 1.1vw;
+        min-height: 1.1vw;
+        line-height: 1.1vw;
+        margin-bottom: .8em;
+        padding: 50px;
     }
     description{
     width: 33vw;
@@ -98,7 +117,13 @@ position: relative;
     }
 
 </style>
+<div class="row">
+    <div class="col-md-5">
+        <h2 class="Nombre">@Html.DisplayFor(model => model.Nombre)</h2>
+        <p width="50" class="fech">@Model.FechaLanzamiento.Value.ToString("yyyy")</p>
+    </div>
 
+</div>
 <table class="table-responsive">
     <tr>
         <td colspan="2"><Nombre>@Html.DisplayFor(model => model.Nombre)</Nombre></td>
@@ -120,8 +145,8 @@ position: relative;
             <a>
                 @if (Model.MiFavorito == true)
                 {
-                    <form class="miLista glyphicon glyphicon-ok" id="MetodoLlamar" method="post" action='@Url.Action("Delete", "Favorito", new { id = Model.MediaId }, null)'>
-                        <button type="submit" class="btn btn-warning disabled" aria-label="Left Align">
+                    <form class="miLista glyphicon glyphicon-ok" id="MetodoLlamar" method="post" action='@Url.Action("Delete", "Favorito", new { id = Model.IdFavorito }, null)'>
+                        <button type="submit" class="btn btn-warning" aria-label="Left Align">
                             <span class="glyphicon glyphicon-ok"></span>Mi Lista
                         </button>
                     </form>
@@ -129,14 +154,15 @@ position: relative;
                 }
                 else
                 {
-                    <form class="miLista glyphicon glyphicon-plus" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
-                        <button type="submit" class="btn btn-warning" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-plus"></span>Mi Lista
-                        </button>
-                    </form>
-                }
+                        <form class="miLista glyphicon glyphicon-plus" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
+                            <button type="submit" class="btn btn-warning" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-plus"></span>Mi Lista
+                            </button>
+                        </form>
+                 }
 
-            </a>
+
+                </a>
         </td>
     </tr>
     <tr>

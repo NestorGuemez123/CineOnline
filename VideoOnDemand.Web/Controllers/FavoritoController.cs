@@ -114,7 +114,7 @@ namespace VideoOnDemand.Web.Controllers
         }
 
         // GET: Favorito/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             FavoritoRepository repository = new FavoritoRepository(context);
             var persona = repository.Query(t => t.id == id).First();
@@ -124,16 +124,17 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Favorito/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FavoritoViewModel model)
+        public ActionResult Delete(int? id, FavoritoViewModel model)
         {
             try
             {
                 FavoritoRepository repository = new FavoritoRepository(context);
                 var persona = repository.Query(e => e.id == id).First();
+                var IdMedia = persona.mediaId;
                 repository.Delete(persona);
                 context.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + IdMedia, "MovieCatalogo");
             }
             catch
             {
