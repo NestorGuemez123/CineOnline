@@ -64,6 +64,14 @@ namespace VideoOnDemand.Web.Controllers
                     var dia = DateTime.Now;
                     var usuarios = repositori3.Query(u => u.IdentityId.Equals(user)).First();
                     var idMedia = repository2.Query(x => x.MediaId == id).First();
+                    #region Validacion de id de media
+                    var Validacion = new Favorito { mediaId = id };
+                    bool Existeid = repository.Query(x => x.mediaId == id).Count()>0 ;
+                    if (Existeid)
+                    {
+                        return RedirectToAction("Details/" + id, "MovieCatalogo");
+                    }
+                    #endregion
                     model.media = idMedia;
                     model.usuario = usuarios;
                     model.FechaAgregado = dia;
@@ -73,8 +81,8 @@ namespace VideoOnDemand.Web.Controllers
                     context.SaveChanges();
 
                 }
+                return RedirectToAction("Details/"+id, "MovieCatalogo");
 
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

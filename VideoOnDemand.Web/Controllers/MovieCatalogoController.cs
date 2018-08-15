@@ -43,12 +43,25 @@ namespace VideoOnDemand.Web.Controllers
         public ActionResult Details(int id)
         {
             MovieRepository repository = new MovieRepository(context);
-            var movie = repository.Query(t => t.MediaId == id).First();
+            GeneroRepository GeneroRepository = new GeneroRepository(context);
+            PersonaRepository PersonaRepository = new PersonaRepository(context);
+            var includes = new Expression<Func<Movie, object>>[] { s => s.Actores, s => s.Generos };
+
+            var movie = repository.QueryIncluding(x => x.MediaId == id, includes).SingleOrDefault();
             var model = MapHelper.Map<MovieViewModel>(movie);
+
+            var generos = GeneroRepository.Query(g => g.Activo == true);
+            var actores = PersonaRepository.Query(a => a.Status == true);
+
+            model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
+            model.GenerosSeleccionados = movie.Generos.Select(g => g.GeneroId.Value).ToArray();
+            model.ActoresDisponibles = MapHelper.Map <ICollection<PersonaViewModel>>(actores);
+            model.ActoresSeleccionados = movie.Actores.Select(a => a.Id.Value).ToArray();
 
 
             return View(model);            
         }
+
         public ActionResult Reproductor()
         {
             return View();

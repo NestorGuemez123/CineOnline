@@ -29,7 +29,13 @@
 
                 <div class="panel-footer">
                     <div class="row">
-                           <a href="@Url.Action("Delete", "Favorito", new { id = serie.id })" class="btn btn-primary" role="button">Eliminar</a>
+                        <a>
+                            <form id="MetodoLlamar" method="post" action='@Url.Action("Delete", "Favorito", new { id = serie.id}, null)'>
+                                <button type="submit" class="btn btn-primary" value="" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span> Eliminar
+                                </button>
+                            </form>
+                        </a>
                         </div>
                         <div class="pull-right">
                             <a href="" class="btn btn-primary" role="button">Detalles</a>
