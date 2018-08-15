@@ -38,7 +38,7 @@ namespace VideoOnDemand.Web.Models
         public ICollection<GeneroViewModel> GenerosDisponibles { get; set; }
         public int[] GenerosSeleccionados { get; set; }
 
-        
+        public bool MiFavorito { get; set; }
         public ICollection<PersonaViewModel> ActoresDisponibles { get; set; }
         public int[] ActoresSeleccionados { get; set; }
 
