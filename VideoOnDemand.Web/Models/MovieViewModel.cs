@@ -14,12 +14,13 @@ namespace VideoOnDemand.Web.Models
 
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
-        [MaxLength(500, ErrorMessage ="Longitud maxima de Caracteres es 500")]
+        [DisplayName("Decripción")]
+        [MaxLength(500, ErrorMessage ="Longitud máxima de Caracteres es 500")]
         public string Descripcion { get; set; }
     
         [DisplayName("Duración (min)")]
         [Required(ErrorMessage="La duración es requerida")]
-        [Range(1, int.MaxValue, ErrorMessage = "Por favor ingrese un valor valido mayor de 1")]
+        [Range(1, int.MaxValue, ErrorMessage = "Por favor ingrese un valor válido mayor de 1")]
         public int DuracionMin { get; set; }
 
         [DisplayName("Fecha de registro")]

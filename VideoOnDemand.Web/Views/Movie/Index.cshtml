@@ -5,7 +5,7 @@
     ViewBag.Title = "View";
 }
 
-<h2>Peliculas</h2>
+<h2>Películas</h2>
 
 <p>
     @using (Html.BeginForm())
@@ -14,7 +14,7 @@
             <input type="text" id="page" name="page" value="1" hidden />
 
             <div class="col-md-3">
-                <label>Nombre de la Pelicula</label>
+                <label>Nombre de la Película</label>
                 <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
             </div>
 
@@ -29,7 +29,7 @@
     <h2>Administrar movies</h2>
 
 <p>
-    @Html.ActionLink("Crear nueva movie", "Create")
+    @Html.ActionLink("Crear nueva Película", "Create")
 </p>
 <table class="table table-hover table-responsive">
     <tr>
@@ -69,8 +69,8 @@
                 @item.EstadosMedia
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MediaId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MediaId })
+                @Html.ActionLink("Editar", "Edit", new { id = item.MediaId }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.MediaId })
             </td>
         </tr>
     }
