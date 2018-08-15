@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VideoOnDemand.Entities;
 using VideoOnDemand.Repositories;
 using VideoOnDemand.Web.Helpers;
 using VideoOnDemand.Web.Models;
@@ -20,23 +22,16 @@ namespace VideoOnDemand.Web.Controllers
 
             return View(models);
         }
-
+        // GET: Opinion/Create
         public ActionResult Create(int? id)
         {
             OpinionRepository repository = new OpinionRepository(context);
             UsuarioRepository repositoryUsuario = new UsuarioRepository(context);
             try{
-
-                var model = new OpinionViewModel();
                 var us = Session["UserId"] as string;
 
-                var media = repository.Query(t => t.MediaId == id).FirstOrDefault();
-                //var model = MapHelper.Map<OpinionViewModel>(media);
-                var usuarios = repositoryUsuario.Query(u => u.Id.Equals(us)).FirstOrDefault();
-                // model.ActoresDisponibles = MapHelper.Map<ICollection<PersonaViewModel>>(actores);
-                //model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);
-                model.Usuario = MapHelper.Map<UsuarioViewModel>(usuarios);
-                model.Media = MapHelper.Map<MediaViewModel>(media);
+                var media = repository.Query(t => t.MediaId == id).First();
+                var model = MapHelper.Map<OpinionViewModel>(media);
 
                 return View(model);
             }
@@ -47,16 +42,32 @@ namespace VideoOnDemand.Web.Controllers
             return View();
         }
 
-        // POST: Genero/Create
+        // POST: Opinion/Create
         [HttpPost]
         public ActionResult Create(int? id, OpinionViewModel model)
         {
             try
             {
-                OpinionRepository repository = new OpinionRepository(context);
-                var persona = repository.Query(t => t.MediaId == id).First();
-                var models = MapHelper.Map<OpinionViewModel>(persona);
-                return View(models);                
+                if (ModelState.IsValid)
+                {
+                    OpinionRepository repoOpinion = new OpinionRepository(context);
+                    MediaRepository repoMedia = new MediaRepository(context);
+                    UsuarioRepository repoUser = new UsuarioRepository(context);
+                    var user = User.Identity.GetUserId();
+                    var dia = DateTime.Now;
+                    var usuarios = repoUser.Query(u => u.IdentityId.Equals(user)).First();
+                    var IdMedia = repoMedia.Query(m => m.MediaId == id).First();
+                    model.media = IdMedia;
+                    model.usuario = usuarios;
+                    model.FechaRegistro = dia;
+
+                    Opinion opinion = MapHelper.Map<Opinion>(model);
+                    repoOpinion.Insert(opinion);
+                    context.SaveChanges();
+                    
+                }
+                return RedirectToAction("Index");
+                           
             }
             catch (Exception ex)
             {
