@@ -90,7 +90,8 @@
                     </div>
 
                     <div class="pull-right">
-                        <a href="" class="btn btn-primary" role="button">Detalles</a>
+                        @Html.ActionLink("Detalles","Details", new { id = serie.MediaId }, new { @class="btn btn-primary" })
+                        
                     </div>
                 </div>
             </div>
