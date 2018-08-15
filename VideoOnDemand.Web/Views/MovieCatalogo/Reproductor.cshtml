@@ -5,21 +5,119 @@
 }
 
 <body style="background-color:black">
+
+       
     <div class="container">
         <h3>Mi Pelicula</h3>
-        <center>
-            <video id="myVideo" poster="~/Multimedia/luis.jpg" preload="auto"  controls width="600" height="400" autoplay >
+        <div id ="midiv" style="width:200px; height:200px;">
+            <video id="myVideo" poster="~/Multimedia/luis.jpg" preload="auto" controls  style="display:inline-block">
                 <source src="~/Multimedia/Tiburon.mp4" type="video/mp4" />
             </video>
-        </center>
-    </div>
+            <button onclick="playPause()" type="button" class="btn btn-default btn-sm" id="btnVideo" >
+                <span class="glyphicon glyphicon-play-circle"></span>
+            </button>
+            <button id="btnStop" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            </button>
 
+        </div>
+        <a href="~/MovieCatalogo/Reproductor">
+            <h4 id="video2Recomendacion" style="color:white; float:right" hidden>Recomendado</h4>
+            <video id="video2" poster="~/Multimedia/luis.jpg" style="float:right; width:450px; height:350px; margin-top:-15%; border:1px solid white;" hidden>
+                <source src="~/Multimedia/Tiburon.mp4" type="video/mp4" />
+            </video>
+        </a>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
             $("#myVideo").on('ended', function () {
-                alert('El video ha finalizado!!!');
+                $("#myVideo").animate({
+                    left: '0px',
+                    height: '200px',
+                    width: '200px'
+                });
+            });
+        });
+        function playPause() {
+            if (myVideo.paused)
+                myVideo.play();
+            else
+                myVideo.pause();
+        }
+
+        $("#btnStop").click(function () {
+            myVideo.pause();
+            document.getElementById("myVideo").innerHTML = "<span class='glyphicon glyphicon-play' aria-hidden='true'></span>";
+            myVideo.currentTime = 0;
+        });
+
+        $(document).ready(function () {
+            $("#myVideo").on('play', function () {
+                $("#myVideo").animate({
+                    left: '0px',
+                    height: '400px',
+                    width: '600px'
+                });
+                $("#btnVideo").animate({
+                    left: '0%',
+                }, "fast");
+                $("#btnStop").animate({
+                    left: '0%',
+                }, "fast");
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").on('ended', function () {
+                $("#btnVideo").animate({
+                    left: '-2000px',
+                }, "fast");
+                $("#btnStop").animate({
+                    left: '-2000px',
+                }, "fast");
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").mouseenter(function () {
+                $('#btnVideo').show();
+            });
+        });
+        $(document).ready(function () {
+            $("#midiv").mouseleave(function () {
+                $('#btnStop').hide();
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").mouseenter(function () {
+                $('#btnStop').show();
+            });
+        });
+        $(document).ready(function () {
+            $("#midiv").mouseleave(function () {
+                $('#btnVideo').hide();
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").on('ended', function () {
+                $("#video2Recomendacion").show();
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").on('ended', function () {
+                $("#video2").show();
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").on('play', function () {
+                $("#video2Recomendacion").hide();
+            });
+        });
+        $(document).ready(function () {
+            $("#myVideo").on('play', function () {
+                $("#video2").hide();
             });
         });
     </script> 
+
 </body>
 

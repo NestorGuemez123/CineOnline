@@ -3,10 +3,48 @@
 {   
     background-color:black;
 }  
-
+/*Estilo del Logo*/
 #logoNetflix
 {
     color:red;
     font-size:30px;
 }              
+/*Video Home*/
+#miVideo{       
+    background-size:cover;    
+    position: center; 
+    right: 0; bottom: 0;
+    width: 100%; 
+    height: auto;    
+    float:left;
+    min-width:120%;
+}
+#divVideo {
+    min-width:100%;
+    position:center;
+    margin-left:-12%;
+    float:left;    
+}
 
+#myVideo{
+    width:600px; 
+    height:400px;
+    position:relative; 
+    float:left
+}
+#btnVideo{
+    margin-left:-165%;
+    margin-top:90%; 
+    position:relative; 
+    display:inline-block;
+    z-index:2000;
+    opacity:.5;
+}
+#btnStop{
+    margin-left:0%;
+    margin-top:90%; 
+    position:relative; 
+    display:inline-block;
+    z-index:2000;
+    opacity:.5;
+}
