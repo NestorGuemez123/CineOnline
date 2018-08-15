@@ -52,3 +52,7 @@
 #hoverGray:hover  {
   background-color: gray;
 }
+#fondoCaratulaCarruselBlack{
+    background-color:black;
+    border:0;
+}
