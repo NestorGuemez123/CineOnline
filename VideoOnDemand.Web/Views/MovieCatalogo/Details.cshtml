@@ -118,9 +118,24 @@ position: relative;
         <td><h7 class="card-title" style="padding-left:5px;"><a class="reproducir  glyphicon glyphicon-play"   href="~/MovieCatalogo/Reproductor" style="text-decoration:none">&nbsp;Reproducir</a></h7></td>
         <td> 
             <a>
-                <form  class="miLista glyphicon glyphicon-plus"  id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
-                    <input type="submit" value="Mi Lista" form="MetodoLlamar"/>
-                </form>
+                @if (Model.MiFavorito == true)
+                {
+                    <form class="miLista glyphicon glyphicon-ok" id="MetodoLlamar" method="post" action='@Url.Action("Delete", "Favorito", new { id = Model.MediaId }, null)'>
+                        <button type="submit" class="btn btn-warning disabled" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-ok"></span>Mi Lista
+                        </button>
+                    </form>
+
+                }
+                else
+                {
+                    <form class="miLista glyphicon glyphicon-plus" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
+                        <button type="submit" class="btn btn-warning" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-plus"></span>Mi Lista
+                        </button>
+                    </form>
+                }
+
             </a>
         </td>
     </tr>
