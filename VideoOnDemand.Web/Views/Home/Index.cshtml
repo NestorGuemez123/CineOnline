@@ -27,55 +27,22 @@
                                         <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                         <!-- /Slide1-->
-
-                        <div class="item">
-                            <ul class="thumbnails">
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-
-                                <li class="col-sm-3">
-                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img id="caratula" src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div><!-- /Slide2 -->
+                        @foreach (var item in Model)
+                        {
+                            <div class="item">
+                                <ul class="thumbnails">
+                                    <li class="col-sm-3">
+                                        <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                            <a href="#"><img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@item.Nombre"></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        <!-- /Slide2 -->
                     </div><!-- /Wrapper for slides .carousel-inner -->
                     <!-- Control box -->
                     <div class="control-box">
