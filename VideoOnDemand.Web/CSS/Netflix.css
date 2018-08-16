@@ -53,11 +53,12 @@
 #hoverGray:hover  {
   background-color: gray;
 }
-#fondoCaratulaCarruselBlack{
-    background-color:black;
-    border:0;
-
+#fondoCaratulaCarruselBlack {
+    background-color: black;
+    border: 0;
+}
 /* Clases que agrego Nestor para las vistas de serie y pelicula */
+
 .textoDetalleMedia {
     color: gray;
 }
@@ -80,7 +81,7 @@
 .imagenMedia {
     display: flex;
     flex-direction: column;
-    background-image: url(../../Multimedia/Detalles.jpg);
+    background-image: url(../Multimedia/Detalles.jpg);
     background-position: center;
     background-size: cover;
 }

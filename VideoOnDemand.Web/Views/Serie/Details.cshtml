@@ -1,5 +1,11 @@
 ﻿@model VideoOnDemand.Web.Models.CompletoSerieViewModel
 
+
+<!-- Seccion de los alerts para errores -->
+<div id="errorOpinion" class="alert" style=" background-color:#e50914; text-align:center; width: 50%; position: fixed; top:10%; left: 50%; margin-left: -25%; z-index: 20;" hidden><strong id="errorOpinionMensaje"></strong></div>
+<div id="exitoOpinion" class="alert" style="background-color: #FFC300; text-align:center; width: 50%; position: fixed; top:10%; left: 50%; margin-left: -25%; z-index: 20;" hidden><strong id="exitoOpinionMensaje"></strong></div>
+
+
 <!-- Información general de la serie y fotografia -->
 <!-- style="background-image: url(../../Multimedia/Detalles.jpg); background-position: center; background-size: cover;" -->
 <div class="row contenedorDetallesImagenMedia">
@@ -34,9 +40,7 @@
 </div>
 
 
-
-
-<div class="container-fluid" style="margin-top: 30px;">
+<div class="container-fluid" style="margin-top: 30px;color: gray;">
     <p><strong>Reseñas</strong></p>
     <p><span id="numeroReseñas">4</span> reseñas</p>
     <div class="row">
@@ -46,10 +50,15 @@
                 <div class="panel-body">
                     <form id="formularioOpinion">
                         <input type="text" id="serieId" name="serieId" value="@Model.MediaId" hidden />
+                        <input type="number" id="puntuacion" name="puntuacion" value="0" hidden/>
                         <div class="form-group">
-                            <textarea id="opinion" name="opinion" class="form-control" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
+                            <textarea id="opinion" name="opinion" class="form-control" maxlength="200" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
                         </div>
-                        <button onClick="validarOpinion(formularioOpinion)" id="btnRegistrarOpinion" name="btnRegistrarOpinion" type="button" class="btn btn-default">Agregar</button>
+                        <div class="form-group">
+                            <button onClick="validarOpinion(formularioOpinion)" id="btnRegistrarOpinion" name="btnRegistrarOpinion" type="button" class="btn btn-default">Agregar</button>
+                            <span class="my-rating pull-right"></span>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -63,92 +72,160 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/star-rater")
     <script type="text/javascript">
         $(function () {
-            consultar($("#serieId").val());
-        });
 
-    function validarOpinion(datos) {
-        if (datos.opinion.value != "") {
-            registrarOpinion(datos);
-            consultar(datos.serieId.value);
-        }
-    }
-
-
-    function registrarOpinion(datos) {
-
-        var opinion = {
-            MediaId: datos.serieId.value,
-            Descripcion: datos.opinion.value,
-            UsuarioId: null,
-            FechaRegistro: null,
-            Puntuacion: 4 //Aqui se debe de modificar la puntuacion
-        };
-
-        $.ajax({
-            url: '@Url.Action("Registrar", "Opinion")',
-            type: 'POST',
-            dataType: 'JSON',
-            contentType: "application/json",
-            data: JSON.stringify(opinion),
-            success: function (data) {
-                if (data.Success) {
-                    alert("Se registro la opinion");
-                } else {
-                    alert("No se registro la opinion");
+            $(".my-rating").starRating({
+                totalStars: 5,
+                useFullStars: true,
+                starShape: 'rounded',
+                starSize: 20,
+                emptyColor: 'lightgray',
+                hoverColor: 'red',
+                activeColor: 'red',
+                useGradient: false,
+                disableAfterRate: false,
+                onHover: function (currentIndex, currentRating, $el) {
+                    $("#puntuacion").val(currentRating);
                 }
-            }
-        });
-    }
+                
+            });
 
-    function consultar(serieId) {
-        $.ajax({
-            url: '@Url.Action("Consultar", "Opinion")' + '/' + serieId,
-                type: 'GET',
+            consultar($("#serieId").val());
+
+           
+        });
+
+        function validarOpinion(datos) {
+            if (datos.puntuacion.value != "") {
+                registrarOpinion(datos);
+                
+            }
+        }
+
+
+        function registrarOpinion(datos) {
+
+            var opinion = {
+                MediaId: datos.serieId.value,
+                Descripcion: datos.opinion.value,
+                UsuarioId: null,
+                FechaRegistro: null,
+                Puntuacion: datos.puntuacion.value //Aqui se debe de modificar la puntuacion
+            };
+
+            $.ajax({
+                url: '@Url.Action("Registrar", "Opinion")',
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: "application/json",
+                data: JSON.stringify(opinion),
+                success: function (data) {
+                    if (data.Success) {
+                        consultar(datos.serieId.value);
+                        $("#exitoOpinionMensaje").html(data.Mensaje);
+                        $("#exitoOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#exitoOpinion").fadeOut("slow");
+                        }, 3000);
+                    } else {
+
+                        $("#errorOpinionMensaje").html(data.Mensaje);
+                        $("#errorOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#errorOpinion").fadeOut("slow");
+                        }, 3000);
+                        
+                    }
+                }
+            });
+        }
+
+        function eliminarOpinion(id) {
+
+            $.ajax({
+                url: '@Url.Action("Eliminar", "Opinion")' + '/' + id,
+                type: 'POST',
                 dataType: 'JSON',
                 data: null,
                 success: function (data) {
                     if (data.Success) {
-                        //Convierto la cadena JSON a objeto JS
-                        var opiniones = JSON.parse(data.Opiniones);
+                        $("#exitoOpinionMensaje").html(data.Mensaje);
 
-                        //Quita lo que este dentro del div
-                        $("#listaOpiniones").empty();
+                        $("#exitoOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#exitoOpinion").fadeOut("slow");
+                        }, 3000);
+                        consultar($("#serieId").val());
+                    } else {
 
-                        //Escribe de nuevo las opiniones
-                        for (i = 0; i < opiniones.length; i++) {
-                            var opinion = opiniones[i];
-                            var html = "";
-                            html += "<div class='row'>";
-                            html += "<div class='col-md-12'>";
-                            html += "<div class='panel panel-default'>";
-                            html += "<div class='panel-body'>";
-                            html += "<div class='media'>";
-                            html += "<a class='pull-left' href=''>";
-                            html += "<img width='64px' class='media-object img-circle' src='/Multimedia/FotoPerfil2.jpg' alt='...'>";
-                            html += "</a>";
-                            html += "<div class='media-body'>";
-                            html += "<h4 class='media-heading'>";
-                            html += opinion.Usuario.Nombre + " - " + opinion.FechaRegistro;
-                            for (estrella = 0; estrella < opinion.Puntuacion; estrella++) {
-                                html += "<span class='glyphicon glyphicon-star'></span>";
-                            }
-                            html += "</h4>";
-                            html += opinion.Descripcion;
-                            html += "</div>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "</div>";
+                        $("#errorOpinionMensaje").html(data.Mensaje);
 
-                            $("#listaOpiniones").append(html);
-                        }
+                        $("#errorOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#errorOpinion").fadeOut("slow");
+                        }, 3000);
+                        
                     }
                 }
             });
-    }
+        }
+
+        function consultar(serieId) {
+            $.ajax({
+                url: '@Url.Action("Consultar", "Opinion")' + '/' + serieId,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: null,
+                    success: function (data) {
+                        if (data.Success) {
+                            //Convierto la cadena JSON a objeto JS
+                            var opiniones = JSON.parse(data.Opiniones);
+
+                            //Quita lo que este dentro del div
+                            $("#listaOpiniones").empty();
+
+                            //Escribe de nuevo las opiniones
+                            for (i = 0; i < opiniones.length; i++) {
+                                var opinion = opiniones[i];
+                                var html = "";
+                                html += "<div class='row'>";
+                                html += "<div class='col-md-12'>";
+                                html += "<div class='panel panel-default'>";
+                                html += "<div class='panel-body'>";
+                                html += "<div class='media'>";
+                                html += "<a class='pull-left' href=''>";
+                                html += "<img width='64px' class='media-object img-circle' src='/Multimedia/FotoPerfil2.jpg' alt='...'>";
+                                html += "</a>";
+                                html += "<div class='media-body'>";
+                                html += "<h4 class='media-heading'>";
+                                html += opinion.Usuario.Nombre + " - " + opinion.FechaRegistro;
+                                html += "<span class='estrellasOpinion pull-right' data-rating='" + opinion.Puntuacion + "'></span>";
+                                html += "</h4>";
+                                html += "<p>"+opinion.Descripcion+"</p>";
+                                html += "<button onClick='eliminarOpinion(" + opinion.Id + ")' id='btnEliminarOpinion' name='btnEliminarOpinion' type='button' class='btn btn-default'>Eliminar</button>";
+                                html += "</div>";
+                                html += "</div>";
+                                html += "</div>";
+                                html += "</div>";
+                                html += "</div>";
+                                html += "</div>";
+
+                                $("#listaOpiniones").append(html);
+
+                                $(".estrellasOpinion").starRating({
+                                    starShape: 'rounded',
+                                    starSize: 20,
+                                    emptyColor: 'lightgray',
+                                    activeColor: 'red',
+                                    readOnly: true
+                                });
+                            }
+                        }
+                    }
+                });
+        }
     </script>
 
 }
