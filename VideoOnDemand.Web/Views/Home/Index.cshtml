@@ -14,7 +14,7 @@
             <div class="col-sm-12">
 
                 
-                    <h3>Peliculas</h3>
+                    <h3>Peliculas</h3><h5 style="margin-left:90%; border:1px solid white; width:7%"><a href="~/MovieCatalogo/Index">Ver Todo #</a></h5>
                 
                 <div id="myCarousel" class="row carousel slide" data-ride="carousel">
 
@@ -153,7 +153,7 @@
 
                             <li class="col-sm-3">
                                 <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    <a href="#" ><img id="caratula" src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                 </div>
                             </li>
                         </ul>
@@ -207,5 +207,22 @@
             else
                 myVideo.pause();
         }
+
+        $(document).ready(function () {
+            $("#caratula").mouseenter(function () {
+                $("#caratula").animate({
+                    height: '220px',
+                    width: '210px'
+                });
+            });
+        });
+        $(document).ready(function () {
+            $(".thumbnail").mouseleave(function () {
+                $("#caratula").animate({
+                    height: '200px',
+                    width: '190px'
+                });
+            });
+        });
     </script>
 </body>
