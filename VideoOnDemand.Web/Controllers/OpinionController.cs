@@ -38,7 +38,8 @@ namespace VideoOnDemand.Web.Controllers
                     context.SaveChanges();
                     return Json(new
                     {
-                        Success = true
+                        Success = true,
+                        Mensaje = "Se registro su reseña"
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -77,7 +78,8 @@ namespace VideoOnDemand.Web.Controllers
 
                 return Json(new
                 {
-                    Success = true
+                    Success = true,
+                    Mensaje = "Se elimino su reseña"
                 }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -95,7 +97,7 @@ namespace VideoOnDemand.Web.Controllers
         {
             OpinionRepository opinionRepository = new OpinionRepository(context);
             var relaciones = new Expression<Func<Opinion, object>>[] {o => o.Usuario };
-            var Opiniones = opinionRepository.QueryIncluding(o => o.MediaId == id, relaciones, "FechaRegistro");
+            var Opiniones = opinionRepository.QueryIncluding(o => o.MediaId == id, relaciones, "").OrderByDescending(o => o.FechaRegistro);
 
             return Json(new
             {
