@@ -79,7 +79,7 @@ namespace VideoOnDemand.Data
             opinion.HasKey(o => o.Id);
             opinion.Property(o => o.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             opinion.Property(o => o.Puntuacion).IsOptional();
-            opinion.Property(o => o.Descripcion).IsOptional();
+            opinion.Property(o => o.Descripcion).HasMaxLength(200).IsOptional();
             #endregion
 
             #region MapeoFavorito
