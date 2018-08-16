@@ -2,7 +2,8 @@
 
 
 <!-- Seccion de los alerts para errores -->
-<div id="errorOpinion" class="alert alert-danger" style=" text-align:center; width: 50%; margin: 0 auto;" hidden></div>
+<div id="errorOpinion" class="alert" style=" background-color:#e50914; text-align:center; width: 50%; position: fixed; top:10%; left: 50%; margin-left: -25%; z-index: 20;" hidden><strong id="errorOpinionMensaje"></strong></div>
+<div id="exitoOpinion" class="alert" style="background-color: #FFC300; text-align:center; width: 50%; position: fixed; top:10%; left: 50%; margin-left: -25%; z-index: 20;" hidden><strong id="exitoOpinionMensaje"></strong></div>
 
 
 <!-- Información general de la serie y fotografia -->
@@ -122,15 +123,19 @@
                 data: JSON.stringify(opinion),
                 success: function (data) {
                     if (data.Success) {
-                        alert("Se registro la opinion");
                         consultar(datos.serieId.value);
+                        $("#exitoOpinionMensaje").html(data.Mensaje);
+                        $("#exitoOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#exitoOpinion").fadeOut("slow");
+                        }, 3000);
                     } else {
 
-                        $("#errorOpinion").html(data.Mensaje);
+                        $("#errorOpinionMensaje").html(data.Mensaje);
                         $("#errorOpinion").fadeIn("slow");
                         setTimeout(function () {
                             $("#errorOpinion").fadeOut("slow");
-                        }, 3000)
+                        }, 3000);
                         
                     }
                 }
@@ -146,16 +151,21 @@
                 data: null,
                 success: function (data) {
                     if (data.Success) {
-                        alert("Se elimino la reseña");
+                        $("#exitoOpinionMensaje").html(data.Mensaje);
+
+                        $("#exitoOpinion").fadeIn("slow");
+                        setTimeout(function () {
+                            $("#exitoOpinion").fadeOut("slow");
+                        }, 3000);
                         consultar($("#serieId").val());
                     } else {
 
-                        $("#errorOpinion").html(data.Mensaje);
+                        $("#errorOpinionMensaje").html(data.Mensaje);
 
                         $("#errorOpinion").fadeIn("slow");
                         setTimeout(function () {
                             $("#errorOpinion").fadeOut("slow");
-                        }, 3000)
+                        }, 3000);
                         
                     }
                 }
