@@ -1,120 +1,63 @@
-﻿
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceder - NETFLIX</title>
-    <link href="/Content/bootstrap.css" rel="stylesheet"/>
-<link href="/Content/site.css" rel="stylesheet"/>
+﻿@using VideoOnDemand.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Acceder";
+}
 
-    <script src="/Scripts/modernizr-2.6.2.js"></script>
-
-    <link href="/CSS/Netflix.css" rel="stylesheet" />
-</head>
-<body style="background-image:url(../../Multimedia/login-background.jpg)">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <a class="navbar-brand" href="/" id="logoNetflix">NETFLIX</a>
-
-
-            </div>            
-        </div>
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Proporciona los datos de tu cuenta</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Iniciar sesión" class="btn btn-primary" />
+                    </div>
+                </div>
+                <p>
+                    @Html.ActionLink("Registar nueva cuenta", "Register")
+                </p>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
     </div>
-    <div class="container body-content" style="color:black; background-color:#f3f3f3;width:35%;height:80%;">
-
-
-
-        <h2>Inicia Sesión</h2>
-        <div class="row container">
-            <div class="col-md-8" style="width:100%">
-                <section id="loginForm">
-                    <form action="/Account/Login" class="form-horizontal" method="post" role="form">
-                        <input name="__RequestVerificationToken" type="hidden" value="V0B9gMstNdKFLt3Othh9-FwbpPGIOZ1k1LJxX_yS13t2ndna70kFp-hyX-K8ZcnVOl9aeFTnwLXH9Q0o9-C-08ewM_YvO6bjgKv6qe8qbdE1" />                   
-                         <h4>Proporciona los datos de tu cuenta</h4>
-                        <hr />
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="Email">Email</label>
-                            <br />
-                            <br />
-                            <div class="col-md-10">
-                                <input style="width:100%" class="form-control" data-val="true" data-val-email="El campo Correo electrónico no es una dirección de correo electrónico válida." data-val-required="El campo Correo electrónico es obligatorio." id="Email" name="Email" type="text" value="" />
-                                <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="Password">Contrase&#241;a</label>
-                            <br />
-                            <br />
-                            <div class="col-md-10">
-                                <input class="form-control" data-val="true" data-val-required="El campo Contraseña es obligatorio." id="Password" name="Password" type="password" />
-                                <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <div class="checkbox">
-                                    <input data-val="true" data-val-required="El campo Recordar cuenta? es obligatorio." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
-                                    <label for="RememberMe">Recuerdame</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Iniciar sesión" class="btn btn-primary"style="width:100%; background-color:red; margin-left:-20%;" />
-                            </div>
-                        </div>
-                        <p>¿Primera vez en Netflix? 
-                            <a href="/Account/Register">Suscríbete ya.</a>
-                        </p>
-                    </form>
-                </section>
-                <section id="socialLoginForm">
-
-                    <h4></h4>
-                    <hr />
-                    <!--
-                            <div>
-                                <p>
-                                    There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                                    for details on setting up this ASP.NET application to support logging in via external services.
-                                </p>
-                            </div>
-
-                    -->
-                </section>
-            </div>
-
-        </div>
-
-        <!-- Visual Studio Browser Link -->
-        <script type="application/json" id="__browserLink_initializationData">
-            {"appName":"Chrome","requestId":"0bd220066446416a8b52abda0ff10a2b"}
-        </script>
-        <script type="text/javascript" src="http://localhost:54832/814da2a928d944f8874a2a41655eb63e/browserLink" async="async"></script>
-        <!-- End Browser Link -->
-
-
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
     </div>
+</div>
 
-    <script src="/Scripts/jquery-1.10.2.js"></script>
-<script src="/Scripts/jquery-3.3.1.js"></script>
-
-    <script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/jquery.globalize/globalize.js"></script>
-<script src="/Scripts/jquery.globalize/cultures/globalize.culture.es-MX.js"></script>
-<script src="/Scripts/bootstrap-datepicker.js"></script>
-<script src="/Scripts/locales/bootstrap-datepicker.es.min.js"></script>
-<script src="/Scripts/respond.js"></script>
-
-    
-    <script src="/Scripts/jquery.validate.js"></script>
-<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
-
-
-</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
