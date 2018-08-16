@@ -58,12 +58,13 @@
                     {
                         <div class="checkbox">
                             <label>
-                                <input name="ActoresSeleccionados" oninvalid="alert" required type="checkbox" value="@item.Id.Value.ToString()"> @item.Name
+                                <input class="actoresCheck" name="ActoresSeleccionados"  type="checkbox" value="@item.Id.Value.ToString()"> @item.Name
                             </label>
                         </div>
                     }
                 </div>
             </div>
+            <p class="text-danger" id="error-actores" hidden>Seleccione por lo menos un actor</p>
         </div>
         <div class="col-md-6">
             <div class="panel panel-primary">
@@ -75,12 +76,13 @@
                     {
                         <div class="checkbox">
                             <label>
-                                <input name="GenerosSeleccionados" required type="checkbox" value="@item.GeneroId.Value.ToString()"> @item.Nombre
+                                <input class="generosCheck" name="GenerosSeleccionados" type="checkbox" value="@item.GeneroId.Value.ToString()"> @item.Nombre
                             </label>
                         </div>
                     }
                 </div>
             </div>
+            <p class="text-danger" id="error-generos" hidden>Seleccione por lo menos un genero</p>
         </div>
     </div>
 
@@ -100,4 +102,46 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+<script type="text/javascript">
+            var errorActores = $('#error-actores');
+            var errorGeneros = $('#error-generos');
+        $('form').submit(function () {
+            //var isValid = $('.hobbycls').not(':checked') == 0;
+            //if (!isValid) {
+            //    errorActores.show(); // display error message
+            //    return false; // prevent submit
+            //}
+
+            if ($(".actoresCheck:checkbox:checked").length > 0 && $(".generosCheck:checkbox:checked").length > 0) {
+                errorActores.hide();
+                errorGeneros.hide();
+                return true;
+            } else {
+                if ($(".actoresCheck:checkbox:checked").length == 0) {
+                    errorActores.show();
+                }
+                if ($(".generosCheck:checkbox:checked").length == 0) {
+                    errorGeneros.show();
+                }
+
+                return false;
+            }
+        });
+
+        $('.actoresCheck').change(function () {
+            if ($(".actoresCheck:checkbox:checked").length > 0) {
+                errorActores.hide(); // hide error message
+            } else {
+                errorActores.show();
+            }
+            });
+
+            $('.generosCheck').change(function () {
+                if ($(".generosCheck:checkbox:checked").length > 0) {
+                    errorGeneros.hide(); // hide error message
+                } else {
+                    errorGeneros.show();
+                }
+            });
+</script>
 }

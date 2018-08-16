@@ -7,7 +7,7 @@
 
 <h2>Películas</h2>
 
-<p>
+
         @using (Html.BeginForm())
         {
             <div class="form-inline">
@@ -68,11 +68,11 @@
 </style>
 
 <div class="row">
-    @foreach (var serie in Model.Results)
+    @foreach (var pelicula in Model.Results)
     {
         <div class="col-md-4" style="padding:2px">
-            <a href='@Url.Action("Details", "MovieCatalogo", new {id =serie.MediaId })'>
-                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@serie.Nombre">
+            <a href='@Url.Action("Details", "MovieCatalogo", new {id =pelicula.MediaId })'>
+                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@pelicula.Nombre">
             </a>
         </div>
     }
