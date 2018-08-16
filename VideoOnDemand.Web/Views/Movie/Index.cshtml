@@ -14,63 +14,61 @@
             <input type="text" id="page" name="page" value="1" hidden />
 
             <div class="col-md-3">
-                <input placeholder="Nombre de la película" type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
-            </div>
-
-            <div>
-                <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
+                <input type="text" id="busqueda" name="busqueda" class="form-control" placeholder="Nombre de la Película" value=@ViewBag.Busqueda>
+                <button type="submit" formmethod="get" class="btn" style="background-color:#e50914; color:white; margin-top:-22% ;margin-left:102%">Buscar</button>
             </div>
         </div>
     }
     <div><h1></h1></div>
 
-
-<p>
-    @Html.ActionLink("Crear nueva Película", "Create")
-</p>
-<table class="table table-hover table-responsive">
-    <tr>
-        <th>
-            Nombre
-        </th>
-
-        <th>
-            Duración (min)
-        </th>
-
-        <th>
-           Fecha de lanzamiento
-        </th>
-        <th>
-            Estado para los usuarios
-        </th>
-
-        <th>Acciones</th>
-    </tr>
-
-    @foreach (var item in Model.Results)
-    {
+    <br />
+    <br />
+    <h5>
+        @Html.ActionLink("Crear nueva Película", "Create")
+    </h5>
+    <table class="table table-hover table-responsive">
         <tr>
-            <td>
-                @item.Nombre
-            </td>
+            <th>
+                Nombre
+            </th>
 
-            <td>
-                @item.DuracionMin
-            </td>
+            <th>
+                Duración (min)
+            </th>
 
-            <td>
-                @item.FechaLanzamiento.Value.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                @item.EstadosMedia
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.MediaId }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.MediaId })
-            </td>
+            <th>
+                Fecha de lanzamiento
+            </th>
+            <th>
+                Estado para los usuarios
+            </th>
+
+            <th>Acciones</th>
         </tr>
-    }
+
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @item.Nombre
+                </td>
+
+                <td>
+                    @item.DuracionMin
+                </td>
+
+                <td>
+                    @item.FechaLanzamiento.Value.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.EstadosMedia
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.MediaId }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.MediaId })
+                </td>
+            </tr>
+        }
     </table>
 
 
