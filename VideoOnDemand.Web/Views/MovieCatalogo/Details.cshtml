@@ -154,7 +154,7 @@ position: relative;
                 }
                 else
                 {
-                        <form class="miLista glyphicon glyphicon-plus" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { id = Model.MediaId }, null)'>
+                        <form class="miLista glyphicon glyphicon-plus" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { esFalse = Model.esMovie, id = Model.MediaId }, null)'>
                             <button type="submit" class="btn btn-warning" aria-label="Left Align">
                                 <span class="glyphicon glyphicon-plus"></span>Mi Lista
                             </button>

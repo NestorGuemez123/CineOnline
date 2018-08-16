@@ -9,7 +9,22 @@
         <p class="textoDetalleMedia">@Model.Descripcion</p>
         <div class="form-group">
             <a class="btn btn-danger botonReproducir" href="~/MovieCatalogo/Reproductor"><span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span><strong>Reproducir</strong></a>
-            <a class="btn btn-danger botonMiLista" href="~/MovieCatalogo/Reproductor"><span class="glyphicon glyphicon-ok" style="margin-right: 10px;"></span><strong>Mi lista</strong></a>
+            @if (Model.MiFavorito == true)
+            {
+                <form class="" style="display:inline" id="MetodoLlamar" method="post" action='@Url.Action("DeleteSerie", "Favorito", new { id = Model.IdFavorito }, null)'>
+                    <button type="submit" class="btn btn-danger botonMiLista">
+                        <span class="glyphicon glyphicon-ok" style="margin-right: 10px;"></span><strong>Mi lista</strong>
+                    </button>
+                </form>
+            }
+            else
+            {
+                <form class="" style="display:inline" id="MetodoLlamar" method="post" action='@Url.Action("Create", "Favorito", new { esFalse = Model.esMovie, id = Model.MediaId }, null)'>
+                    <button type="submit" class="btn btn-danger botonMiLista">
+                        <span class="glyphicon glyphicon-plus" style="margin-right: 10px;"></span><strong>Mi lista</strong>
+                    </button>
+                </form>
+            }
         </div>
 
 
