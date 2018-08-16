@@ -21,14 +21,14 @@
 
         <p class="textoDetalleMedia">
             <strong>Protagonistas:</strong>
-            @foreach (var actor in Model.Actores)
+            @foreach (var actor in Model.Actores.Where(x=>x.Status==true))
             {
                 <span class="badge badgeMedia">@actor.Name</span>
             }
         </p>
         <p class="textoDetalleMedia">
             <strong>Géneros: </strong>
-            @foreach (var genero in Model.Generos)
+            @foreach (var genero in Model.Generos.Where(x=>x.Activo==true))
             {
                 <span class="badge badgeMedia">@genero.Nombre</span>
             }

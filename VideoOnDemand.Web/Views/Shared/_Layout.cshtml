@@ -6,14 +6,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - NETFLIX</title>
+    <title>@ViewBag.Title - Netflix</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/star-rater-style")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/CSS/Netflix.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Multimedia/icono.png">
 </head>
 <body class="fondoNetflix">
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:rgba(0,0,0,0.0)">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:rgba(0,0,0,0.0); border:0px" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,8 +22,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                @Html.ActionLink("NETFLIX", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "logoNetflix"})
+                <a id="logo" href="/Home/Index" class="navbar-brand"> <img src="~/Multimedia/logo.png" height="70" width="150" style="margin-top:-16%; margin-left:-39%" /> </a>
+                @*@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand"})*@
 
 
             </div>
@@ -31,8 +32,9 @@
 
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Películas", "Index", "MovieCatalogo")</li>
-                        <li>@Html.ActionLink("Series", "Index", "Serie")</li>
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Programas de TV", "Index", "Serie")</li>
+                        <li>@Html.ActionLink("Películas", "Index", "MovieCatalogo")</li>                        
                         <li>@Html.ActionLink("Mi Lista", "Index", "Favorito")</li>
                         var user = User.Identity;
                         var context = new ApplicationDbContext();
