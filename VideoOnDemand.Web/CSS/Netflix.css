@@ -1,21 +1,21 @@
 ﻿/*Estilo para toda interfaz*/
 .fondoNetflix
-{   
+{
     background-color:black;
-}  
+}
 /*Estilo del Logo*/
 #logoNetflix
 {
     color:red;
     font-size:30px;
-}              
+}
 /*Video Home*/
-#miVideo{       
-    background-size:cover;    
-    position: center; 
+#miVideo{
+    background-size:cover;
+    position: center;
     right: 0; bottom: 0;
-    width: 100%; 
-    height: auto;    
+    width: 100%;
+    height: auto;
     float:left;
     min-width:120%;
 }
@@ -23,28 +23,77 @@
     min-width:100%;
     position:center;
     margin-left:-12%;
-    float:left;    
+    float:left;
 }
 
 #myVideo{
-    width:600px; 
+    width:600px;
     height:400px;
-    position:relative; 
+    position:relative;
     float:left
 }
 #btnVideo{
     margin-left:-165%;
-    margin-top:90%; 
-    position:relative; 
+    margin-top:90%;
+    position:relative;
     display:inline-block;
     z-index:2000;
     opacity:.5;
 }
 #btnStop{
     margin-left:0%;
-    margin-top:90%; 
-    position:relative; 
+    margin-top:90%;
+    position:relative;
     display:inline-block;
     z-index:2000;
     opacity:.5;
+}
+
+#hoverGray:hover  {
+  background-color: gray;
+}
+#fondoCaratulaCarruselBlack{
+    background-color:black;
+    border:0;
+
+/* Clases que agrego Nestor para las vistas de serie y pelicula */
+.textoDetalleMedia {
+    color: gray;
+}
+
+.badgeMedia {
+    background-color: gray;
+}
+
+.contenedorDetallesImagenMedia {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detallesMedia {
+    display: flex;
+    flex-direction: column;
+}
+
+.imagenMedia {
+    display: flex;
+    flex-direction: column;
+    background-image: url(../../Multimedia/Detalles.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.botonReproducir {
+    background-color: red;
+    border: solid red 1px;
+    padding: 5px 15px;
+    border-radius: 0px;
+}
+
+.botonMiLista {
+    background-color: black;
+    border: solid gray 1px;
+    padding: 5px 15px;
+    border-radius: 0px;
 }

@@ -4,9 +4,9 @@
     ViewBag.Title = Model.Nombre.ToString();
 }
 
-<h2>Eliminar genero</h2>
+<h2>Eliminar Género @Html.DisplayFor(model => model.Nombre)</h2>
 
-<h3>¿Esta seguro de eliminar este genero?</h3>
+<h3>¿Esta seguro de eliminar este Género?</h3>
 
 <div>
     <dl class="dl-horizontal">
@@ -32,7 +32,7 @@
     @Html.AntiForgeryToken()
         <div class="form-actions no-color">
             <input type="submit" value="Eliminar" class="btn btn-default" /> |
-            @Html.ActionLink("Regresar a la lista de generos", "Index")
+            @Html.ActionLink("Regresar a la lista de Géneros", "Index")
         </div>
     }
 </div>

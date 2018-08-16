@@ -4,8 +4,7 @@
     ViewBag.Title = Model.Nombre.ToString();
 }
 
-<h2>Editar genero</h2>
-
+<h2>Editar Género @Html.DisplayFor(model => model.Nombre)</h2>
 
 @using (Html.BeginForm())
 {
@@ -41,7 +40,7 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar a la lista de generos", "Index")
+    @Html.ActionLink("Regresar a la lista de Géneros", "Index")
 </div>
 
 @section Scripts {
