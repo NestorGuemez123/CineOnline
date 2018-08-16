@@ -103,3 +103,7 @@
 #tablaCheckbox{
     background-color:gray;
 }
+
+ .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: rgba(128,128,128,0.2);
+}
