@@ -1,38 +1,43 @@
 ﻿@model VideoOnDemand.Web.Models.CompletoSerieViewModel
+
 <!-- Información general de la serie y fotografia -->
-<div class="row">
-    <div class="col-md-5">
+<!-- style="background-image: url(../../Multimedia/Detalles.jpg); background-position: center; background-size: cover;" -->
+<div class="row contenedorDetallesImagenMedia">
+    <div class="col-md-5 detallesMedia">
+        <h2><strong> @Model.Nombre </strong></h2>
+        <h4>@Model.FechaLanzamiento.Value.Year (Numero de temporadas)  @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("%h") h @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("mm") min</h4>
+        <p class="textoDetalleMedia">@Model.Descripcion</p>
+        <div class="form-group">
+            <a class="btn btn-danger botonReproducir" href="~/MovieCatalogo/Reproductor"><span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span><strong>Reproducir</strong></a>
+            <a class="btn btn-danger botonMiLista" href="~/MovieCatalogo/Reproductor"><span class="glyphicon glyphicon-ok" style="margin-right: 10px;"></span><strong>Mi lista</strong></a>
+        </div>
 
-    </div>
-    <div class="col-md-7">
-        <h3>@Model.Nombre ( @Model.FechaLanzamiento.Value.Year )</h3>
-        <p>Temporada: <span id="temporada"></span></p>
-        <p>Descripción: @Model.Descripcion</p>
 
-        <p>
-            Géneros:
-            @foreach (var genero in Model.Generos)
-            {
-                <span class="badge">@genero.Nombre</span>
-            }
-        </p>
-
-        <p>
-            Actores:
+        <p class="textoDetalleMedia">
+            <strong>Protagonistas:</strong>
             @foreach (var actor in Model.Actores)
             {
-                <span class="badge">@actor.Name</span>
+                <span class="badge badgeMedia">@actor.Name</span>
             }
         </p>
-
-        <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Mi lista</a>
+        <p class="textoDetalleMedia">
+            <strong>Géneros: </strong>
+            @foreach (var genero in Model.Generos)
+            { 
+                <span class="badge badgeMedia">@genero.Nombre</span>
+            }
+        </p>
+    </div>
+    <div class="col-md-7 imagenMedia">
 
     </div>
 </div>
 
-<hr />
 
-<div class="container-fluid">
+
+
+<div class="container-fluid" style="margin-top: 30px;">
+    <p><strong>Reseñas</strong></p>
     <p><span id="numeroReseñas">4</span> reseñas</p>
     <div class="row">
         <div class="col-md-12">
@@ -62,7 +67,7 @@
         $(function () {
             consultar($("#serieId").val());
         });
-    
+
     function validarOpinion(datos) {
         if (datos.opinion.value != "") {
             registrarOpinion(datos);
@@ -89,7 +94,7 @@
             data: JSON.stringify(opinion),
             success: function (data) {
                 if (data.Success) {
-                    alert("Se registro la opinion");                   
+                    alert("Se registro la opinion");
                 } else {
                     alert("No se registro la opinion");
                 }
@@ -145,5 +150,5 @@
             });
     }
     </script>
-    
+
 }

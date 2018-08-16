@@ -47,16 +47,27 @@ namespace VideoOnDemand.Web.Controllers
         {
             #region Repositorios necesarios
             SerieRepository serieRepository = new SerieRepository(context);
+            FavoritoRepository favoritoRepository = new FavoritoRepository(context);
             #endregion
 
             #region Consulta la serie en la bd
             var relaciones = new Expression<Func<Serie, object>>[] { s => s.Generos, s => s.Actores};
             Serie serie = serieRepository.QueryIncluding(s => s.MediaId == id, relaciones, "FechaRegistro").SingleOrDefault();
-            
+
+
             #endregion
 
             #region Mapeo de la serie con su view model adecuado
             var model = MapHelper.Map<CompletoSerieViewModel>(serie);
+
+            bool enFav = favoritoRepository.Query(x => x.mediaId == id).Count() > 0;
+            if (enFav == true)
+            {
+                var idFav = favoritoRepository.Query(x => x.mediaId == id).Select( x => x.id).FirstOrDefault();
+                model.IdFavorito = idFav;
+            }
+            model.MiFavorito = enFav;
+
             #endregion
 
             return View(model);

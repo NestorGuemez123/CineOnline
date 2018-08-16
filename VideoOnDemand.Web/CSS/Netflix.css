@@ -48,3 +48,46 @@
     z-index:2000;
     opacity:.5;
 }
+
+
+/* Clases que agrego Nestor para las vistas de serie y pelicula */
+.textoDetalleMedia {
+    color: gray;
+}
+
+.badgeMedia {
+    background-color: gray;
+}
+
+.contenedorDetallesImagenMedia {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detallesMedia {
+    display: flex;
+    flex-direction: column;
+}
+
+.imagenMedia {
+    display: flex;
+    flex-direction: column;
+    background-image: url(../../Multimedia/Detalles.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.botonReproducir {
+    background-color: red;
+    border: solid red 1px;
+    padding: 5px 15px;
+    border-radius: 0px;
+}
+
+.botonMiLista {
+    background-color: black;
+    border: solid gray 1px;
+    padding: 5px 15px;
+    border-radius: 0px;
+}
