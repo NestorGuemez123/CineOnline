@@ -28,66 +28,19 @@ namespace VideoOnDemand.Web.Controllers
             if (ModelState.IsValid)
             {
                 OpinionRepository opinionRepository = new OpinionRepository(context);
-
-                var existeOpinion = opinionRepository.Query(o => o.UsuarioId == model.UsuarioId && o.MediaId == model.MediaId).Count() > 0;
-
-                if (!existeOpinion)
-                {
-                    var opinion = MapHelper.Map<Opinion>(model);
-                    opinionRepository.Insert(opinion);
-                    context.SaveChanges();
-                    return Json(new
-                    {
-                        Success = true
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        Success = false,
-                        Mensaje = "No puede registrar mas de una reseña por serie"
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                
-            }
-            else
-                return Json(new
-                {
-                    Success = false
-                }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult Eliminar(int id)
-        {
-            UsuarioRepository usuarioRepository = new UsuarioRepository(context);
-            OpinionRepository opinionRepository = new OpinionRepository(context);
-
-            var usuarioIdentirty = User.Identity.GetUserId();
-            var usuarioId = usuarioRepository.Query(u => u.IdentityId == usuarioIdentirty).Select(u => u.Id).SingleOrDefault();
-
-            var opinion = opinionRepository.Query(o => o.Id == id && o.UsuarioId == usuarioId).SingleOrDefault();
-
-            if(opinion != null)
-            {
-                opinionRepository.Delete(opinion);
+                var opinion = MapHelper.Map<Opinion>(model);
+                opinionRepository.Insert(opinion);
                 context.SaveChanges();
-
                 return Json(new
                 {
                     Success = true
                 }, JsonRequestBehavior.AllowGet);
             }
             else
-            {
                 return Json(new
                 {
-                    Success = false,
-                    Mensaje = "No puede eliminar una reseña que no es suya"
+                    Success = false
                 }, JsonRequestBehavior.AllowGet);
-            }
         }
 
         [HttpGet]

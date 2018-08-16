@@ -6,73 +6,82 @@
 }
 
 <h2>Películas</h2>
+<style>
+    .tooltip.top .tooltip-inner {
+        background-color: red;
+    }
 
-<p>
-        @using (Html.BeginForm())
-        {
-            <div class="form-inline">
-                <input type="text" id="page" name="page" value="1" hidden />
+    .tooltip.top .tooltip-arrow {
+        border-top-color: red;
+    }
+</style>
 
-                <div class="col-md-3">
-                    <label>Nombre de la Película</label>
-                    <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
-                </div>
+@using (Html.BeginForm())
+{
+    <div class="form-inline">
+        <input type="text" id="page" name="page" value="1" hidden />
 
-                <div class="col-md-3">
-                    <label>Genero de la Película</label>
-                    <select id="genero" name="genero" class="form-control">
-                        @if (String.IsNullOrEmpty(ViewBag.Genero))
-                        {
-                            <option value=""></option>
-                        }
-                        else
-                        {
-                            <option value=@ViewBag.Genero>@ViewBag.Genero</option>
-                            <option value=""></option>
-                        }
-                         
-                        @foreach (var genero in (List<string>)ViewBag.ListaGeneros)
-                        {
-                            <option value="@genero">@genero</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label>Películas por pagina</label>
-                    <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
-                </div>
-                <div>
-                    <br />
-                    <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
-                </div>
-            </div>
-        }
+        <div class="col-md-3">
+            <label>Nombre de la Película</label>
+            <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
+        </div>
+
+        <div class="col-md-3">
+            <label>Genero de la Película</label>
+            <select id="genero" name="genero" class="form-control">
+                @if (String.IsNullOrEmpty(ViewBag.Genero))
+                {
+                    <option value=""></option>
+                }
+                else
+                {
+                    <option value=@ViewBag.Genero>@ViewBag.Genero</option>
+                    <option value=""></option>
+                }
+
+                @foreach (var genero in (List<string>)ViewBag.ListaGeneros)
+                {
+                    <option value="@genero">@genero</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>Películas por pagina</label>
+            <input type="number" class="form-control" id="pageSize" name="pageSize" min="1" value="@Model.PageSize" />
+        </div>
+        <div>
+            <br />
+            <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+}
 <div><h1></h1></div>
 
-<style>        
-    table#pelicula{
-        width:200px;
-        height:300px;
-        float:left;
-        
+<style>
+    table#pelicula {
+        width: 200px;
+        height: 300px;
+        float: left;
     }
-    footer{
-        width:1px;
-        height:1px;
-        float:none;
-    }
+
     nosalto{
     font-weight: normal !important;
     }
+        .tooltip.top .tooltip-inner {
+        background-color: red;
+    }
 
+    .tooltip.top .tooltip-arrow {
+        border-top-color: red;
+    }
 </style>
 
 <div class="row">
-    @foreach (var serie in Model.Results)
+    @foreach (var pelicula in Model.Results)
     {
         <div class="col-md-4" style="padding:2px">
-            <a href='@Url.Action("Details", "MovieCatalogo", new {id =serie.MediaId })'>
-                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@serie.Nombre">
+            <a href='@Url.Action("Details", "MovieCatalogo", new {id =pelicula.MediaId })'>
+                <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@pelicula.Nombre">
             </a>
         </div>
     }
@@ -83,6 +92,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $(function () {
+            $(".TitulosBonitos").tooltip();
+        });
+</script>
 }
-
-

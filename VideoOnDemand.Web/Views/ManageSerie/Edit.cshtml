@@ -7,7 +7,7 @@
     ViewBag.Title = Model.Nombre.ToString();
 }
 
-<h2>Editar serie</h2>
+<h2>Editar Serie @Html.DisplayFor(model => model.Nombre)</h2>
 
 
 @using (Html.BeginForm())
@@ -63,11 +63,11 @@ new SelectListItem { Text = "INVISIBLE", Value = EEstatusMedia.INVISIBLE.ToStrin
 
         <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel" style="border:0px;">
+                    <div class="panel-heading" style="background-color:#e50914">
                         <h3 class="panel-title">Actores</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="color:dimgray;">
                         @foreach (var item in Model.ActoresDisponibles)
                         {
                             var seleccionado = "";
@@ -94,11 +94,11 @@ new SelectListItem { Text = "INVISIBLE", Value = EEstatusMedia.INVISIBLE.ToStrin
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel" style="border:0px;">
+                    <div class="panel-heading" style="background-color:#e50914">
                         <h3 class="panel-title">Generos</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="color:dimgray;">
                         @foreach (var item in Model.GenerosDisponibles)
                         {
                             var seleccionado = "";
