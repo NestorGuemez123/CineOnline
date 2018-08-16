@@ -56,15 +56,17 @@
         float:left;
         
     }
-    footer{
-        width:1px;
-        height:1px;
-        float:none;
-    }
+
     nosalto{
     font-weight: normal !important;
     }
+        .tooltip.top .tooltip-inner {
+        background-color: red;
+    }
 
+    .tooltip.top .tooltip-arrow {
+        border-top-color: red;
+    }
 </style>
 
 <div class="row">
@@ -83,6 +85,11 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $(function () {
+            $(".TitulosBonitos").tooltip();
+        });
+</script>
 }
 
 

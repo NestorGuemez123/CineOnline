@@ -5,7 +5,7 @@
     ViewBag.Title = "View";
 }
 
-<h2>Películas</h2>
+<h2>Administrar Películas</h2>
 
 <p>
     @using (Html.BeginForm())
@@ -14,19 +14,16 @@
             <input type="text" id="page" name="page" value="1" hidden />
 
             <div class="col-md-3">
-                <label>Nombre de la Película</label>
-                <input type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
+                <input placeholder="Nombre de la película" type="text" id="busqueda" name="busqueda" class="form-control" value=@ViewBag.Busqueda>
             </div>
 
             <div>
-                <br />
                 <button type="submit" formmethod="get" class="btn btn-primary">Buscar</button>
             </div>
         </div>
     }
     <div><h1></h1></div>
 
-    <h2>Administrar movies</h2>
 
 <p>
     @Html.ActionLink("Crear nueva Película", "Create")
