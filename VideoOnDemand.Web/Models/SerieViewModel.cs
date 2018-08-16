@@ -167,5 +167,9 @@ namespace VideoOnDemand.Web.Models
         // Mantiene la lista de actores
         public ICollection<PersonaViewModel> Actores { get; set; }
 
+        // Mantiene datos sobre si la pelicula pertenece a favoritos
+        public bool MiFavorito { get; set; }
+        public int? IdFavorito { get; set; }
+
     }
 }
