@@ -50,6 +50,7 @@
                             <textarea id="opinion" name="opinion" class="form-control" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
                         </div>
                         <button onClick="validarOpinion(formularioOpinion)" id="btnRegistrarOpinion" name="btnRegistrarOpinion" type="button" class="btn btn-default">Agregar</button>
+                        <div class="my-rating"></div>
                     </form>
                 </div>
             </div>
@@ -63,8 +64,20 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/star-rater")
     <script type="text/javascript">
         $(function () {
+
+            $(".my-rating").starRating({
+                totalStars: 5,
+                starShape: 'rounded',
+                starSize: 4,
+                emptyColor: 'lightgray',
+                hoverColor: 'salmon',
+                activeColor: 'crimson',
+                useGradient: false
+            });
+
             consultar($("#serieId").val());
         });
 
