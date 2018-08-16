@@ -6,8 +6,9 @@
 /*Estilo del Logo*/
 #logoNetflix
 {
-    color:red;
+    color:#e50914;
     font-size:30px;
+    font-weight:600;
 }
 /*Video Home*/
 #miVideo{
@@ -27,14 +28,14 @@
 }
 
 #myVideo{
-    width:600px;
-    height:400px;
+    width:800px;
+    height:500px;
     position:relative;
     float:left
 }
 #btnVideo{
-    margin-left:-165%;
-    margin-top:90%;
+    margin-left:-210%;
+    margin-top:110%;
     position:relative;
     display:inline-block;
     z-index:2000;
@@ -42,7 +43,7 @@
 }
 #btnStop{
     margin-left:0%;
-    margin-top:90%;
+    margin-top:110%;
     position:relative;
     display:inline-block;
     z-index:2000;
@@ -52,11 +53,12 @@
 #hoverGray:hover  {
   background-color: gray;
 }
-#fondoCaratulaCarruselBlack{
-    background-color:black;
-    border:0;
-
+#fondoCaratulaCarruselBlack {
+    background-color: black;
+    border: 0;
+}
 /* Clases que agrego Nestor para las vistas de serie y pelicula */
+
 .textoDetalleMedia {
     color: gray;
 }
@@ -79,7 +81,7 @@
 .imagenMedia {
     display: flex;
     flex-direction: column;
-    background-image: url(../../Multimedia/Detalles.jpg);
+    background-image: url(../Multimedia/Detalles.jpg);
     background-position: center;
     background-size: cover;
 }
@@ -96,4 +98,8 @@
     border: solid gray 1px;
     padding: 5px 15px;
     border-radius: 0px;
+}
+
+#tablaCheckbox{
+    background-color:gray;
 }
