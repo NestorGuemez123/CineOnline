@@ -120,13 +120,11 @@ namespace VideoOnDemand.Web.Controllers
 
 
         // GET: Genero/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             var repository = new GeneroRepository(context);
             var genero = repository.Query(t => t.GeneroId == id).First();
-            var model = MapHelper.Map<GeneroViewModel>(genero);
-
-
+            var model = MapHelper.Map<GeneroViewModel>(genero);           
             return View(model);
         }
 
@@ -139,11 +137,19 @@ namespace VideoOnDemand.Web.Controllers
 
                 GeneroRepository repository = new GeneroRepository(context);
                 var genero = repository.Query(e => e.GeneroId == id).First();
-                genero.Activo = false;
-                repository.Update(genero);
-                context.SaveChanges();
+                context.Entry(genero).Collection(g => g.Medias).Load();
 
-                return RedirectToAction("Index");
+                if (genero.Medias.Count()==0)
+                {
+                    genero.Activo = false;
+                    repository.Update(genero);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }   
             }
             catch
             {

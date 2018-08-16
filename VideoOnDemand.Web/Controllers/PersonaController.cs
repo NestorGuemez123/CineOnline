@@ -125,11 +125,19 @@ namespace VideoOnDemand.Web.Controllers
             {
                 PersonaRepository repository = new PersonaRepository(context);
                 var persona = repository.Query(e => e.Id == id).First();
-                persona.Status = false;
-                repository.Update(persona);
-                context.SaveChanges();
+                context.Entry(persona).Collection(g => g.Medias).Load();
 
-                return RedirectToAction("Index");
+                if (persona.Medias.Count() == 0)
+                {
+                    persona.Status = false;
+                    repository.Update(persona);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
