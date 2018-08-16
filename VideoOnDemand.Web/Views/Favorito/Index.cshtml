@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Mi Lista";
 }
-
+@{
+}
 <h2>Mi Lista</h2>
+<h5>@Model.Count Elementos en la lista</h5>
 <style>
     .tooltip.top .tooltip-inner {
         background-color: red;
@@ -18,7 +20,7 @@
     @foreach (var serie in Model)
     {
             <div class="col-md-4" style="padding:2px">
-                <a href='@Url.Action("Details", "MovieCatalogo", new { id = serie.mediaId })'>
+                <a href='@Url.Action("Details", "MovieCatalogo", new { id = serie.mediaId})'>
                     <img src="/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg" class="TitulosBonitos" style="width:100%;" data-toggle="tooltip" data-placement="top" title="@serie.media.Nombre">
                 </a>
             </div>
