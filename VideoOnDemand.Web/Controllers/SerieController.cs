@@ -63,11 +63,12 @@ namespace VideoOnDemand.Web.Controllers
             bool enFav = favoritoRepository.Query(x => x.mediaId == id).Count() > 0;
             if (enFav == true)
             {
-                var idFav = favoritoRepository.Query(x => x.mediaId == id).Select( x => x.id).FirstOrDefault();
+                var TodoFav = favoritoRepository.Query(x => x.mediaId == id).First();
+                var idFav = TodoFav.id;
                 model.IdFavorito = idFav;
             }
             model.MiFavorito = enFav;
-
+            model.esMovie = true;
             #endregion
 
             return View(model);

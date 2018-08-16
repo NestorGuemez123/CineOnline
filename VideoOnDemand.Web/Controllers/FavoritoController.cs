@@ -17,8 +17,10 @@ namespace VideoOnDemand.Web.Controllers
         // GET: Favorito
         public ActionResult Index()
         {
+            MediaViewModel media = new MediaViewModel();
             FavoritoRepository repository = new FavoritoRepository(context);
-            var lst = repository.GetAll();
+            var lst = repository.Query(x=> x.media.EstadosMedia == EEstatusMedia.VISIBLE).OrderBy(x=> x.media.Nombre);
+
             var models = MapHelper.Map<List<FavoritoViewModel>>(lst);
             return View(models);
         }
@@ -51,7 +53,7 @@ namespace VideoOnDemand.Web.Controllers
 
         // POST: Favorito/Create
         [HttpPost]
-        public ActionResult Create(int? id,FavoritoViewModel model)
+        public ActionResult Create(bool esFalse, int? id,FavoritoViewModel model)
         {
             try
             {
@@ -72,6 +74,7 @@ namespace VideoOnDemand.Web.Controllers
                         return RedirectToAction("Details/" + id, "MovieCatalogo");
                     }
                     #endregion
+                    model.esMovie = esFalse;
                     model.media = idMedia;
                     model.usuario = usuarios;
                     model.FechaAgregado = dia;
@@ -80,6 +83,10 @@ namespace VideoOnDemand.Web.Controllers
                     repository.Insert(persona);
                     context.SaveChanges();
 
+                }
+                if (esFalse == true)
+                {
+                    return RedirectToAction("Details/" + id, "Serie");
                 }
                 return RedirectToAction("Details/"+id, "MovieCatalogo");
 
@@ -135,6 +142,24 @@ namespace VideoOnDemand.Web.Controllers
                 context.SaveChanges();
 
                 return RedirectToAction("Details/" + IdMedia, "MovieCatalogo");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteSerie(int? id, FavoritoViewModel model)
+        {
+            try
+            {
+                FavoritoRepository repository = new FavoritoRepository(context);
+                var persona = repository.Query(e => e.id == id).First();
+                var IdMedia = persona.mediaId;
+                repository.Delete(persona);
+                context.SaveChanges();
+
+                return RedirectToAction("Details/" + IdMedia, "Serie");
             }
             catch
             {

@@ -1,9 +1,10 @@
-﻿@{
+﻿@model List<VideoOnDemand.Web.Models.MediaViewModel>
+@{
     ViewBag.Title = "Home Page";
 }
-<body >
+<body>
     <div id="divVideo" class="container">
-        <video  id="miVideo" poster="~/Multimedia/avenger.png" loop muted>
+        <video id="miVideo" poster="~/Multimedia/avenger.png" loop muted>
             <source src="~/Multimedia/marvel.mp4" type="video/mp4" />
         </video>
         @*<p class="lead">Nuestra plataforma de ofrece muchas películas y series!</p>*@
@@ -13,67 +14,64 @@
         <div class="row">
             <div class="col-sm-12">
 
-                
-                    <h3>Peliculas</h3><h5 style="margin-left:90%; border:1px solid white; width:7%"><a href="~/MovieCatalogo/Index">Ver Todo #</a></h5>
-                
-                <div id="myCarousel" class="row carousel slide" data-ride="carousel">
 
+                <h3>Peliculas</h3><h5 style="margin-left:90%; border:1px solid white; width:7%"><a href="~/MovieCatalogo/Index">Ver Todo #</a></h5>
+
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-
+                    <div class="carousel-inner" role="list">
                         <div class="item active">
-
                             <ul class="thumbnails">
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
                             </ul>
-                        </div><!-- /Slide1 -->
-
+                        </div>
+                        <!-- /Slide1-->
 
                         <div class="item">
                             <ul class="thumbnails">
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
 
                                 <li class="col-sm-3">
                                     <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                        <a href="#"><img src="https://2.bp.blogspot.com/-9E2lq75KpV4/W3Bcu-SV6OI/AAAAAAAAw8o/jeE56jaKcEcNE9HE7dlyjaMkcRgTRFbogCLcBGAs/s1600/de%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                        <a href="#"><img id="caratula" src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
                                     </div>
                                 </li>
                             </ul>
@@ -90,83 +88,83 @@
     </div><!-- /.container -->
 
     <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
 
-            
+
                 <h3>Series</h3>
-            
-            <div id="myCarousel2" class="row carousel slide" data-ride="carousel">
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
+                <div id="myCarousel2" class="row carousel slide" data-ride="carousel">
 
-                    <div class="item active">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
 
-                        <ul class="thumbnails">
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                        <div class="item active">
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                            <ul class="thumbnails">
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div><!-- /Slide1 -->
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
+
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><!-- /Slide1 -->
 
 
-                    <div class="item">
-                        <ul class="thumbnails">
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                        <div class="item">
+                            <ul class="thumbnails">
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
 
-                            <li class="col-sm-3">
-                                <div class="thumbnail" id="fondoCaratulaCarruselBlack">
-                                    <a href="#" ><img id="caratula" src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div><!-- /Slide2 -->
-                </div><!-- /Wrapper for slides .carousel-inner -->
-                <!-- Control box -->
-                <div class="control-box">
-                    <a data-slide="prev" href="#myCarousel2" class="carousel-control left"><h2 style="margin-top:60%"><</h2></a>
-                    <a data-slide="next" href="#myCarousel2" class="carousel-control right"><h2 style="margin-top:60%">></h2></a>
-                </div><!-- /.control-box -->
-            </div><!-- /#myCarousel -->
-        </div><!-- /.col-sm-12 -->
-    </div><!-- /.row -->
+                                <li class="col-sm-3">
+                                    <div class="thumbnail" id="fondoCaratulaCarruselBlack">
+                                        <a href="#"><img id="caratula" src="https://3.bp.blogspot.com/-exgx6K8o9Hk/WpOs13ccx6I/AAAAAAAAqlw/ktd164MJw7EIdug-S1uiysyPoqH2IwNAgCLcBGAs/s1600/po%2B1080p2%2B%25281%2529.png" alt=""></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><!-- /Slide2 -->
+                    </div><!-- /Wrapper for slides .carousel-inner -->
+                    <!-- Control box -->
+                    <div class="control-box">
+                        <a data-slide="prev" href="#myCarousel2" class="carousel-control left"><h2 style="margin-top:60%"><</h2></a>
+                        <a data-slide="next" href="#myCarousel2" class="carousel-control right"><h2 style="margin-top:60%">></h2></a>
+                    </div><!-- /.control-box -->
+                </div><!-- /#myCarousel -->
+            </div><!-- /.col-sm-12 -->
+        </div><!-- /.row -->
     </div><!-- /.container -->
 
     <div class="row">
@@ -223,6 +221,27 @@
                     width: '190px'
                 });
             });
+        });
+        $('#myCarousel').carousel({
+            interval: 40000
+        });
+
+        $('.carousel .item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            if (next.next().length > 0) {
+
+                next.next().children(':first-child').clone().appendTo($(this)).addClass('rightest');
+
+            }
+            else {
+                $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+
+            }
         });
     </script>
 </body>
