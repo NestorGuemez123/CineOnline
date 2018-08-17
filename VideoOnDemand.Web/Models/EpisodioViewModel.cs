@@ -63,4 +63,11 @@ namespace VideoOnDemand.Web.Models
 
     }
 
+    /*--------------- Para el usuario --------------*/
+    public class EpisodioCarrucelViewModel
+    {
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public int? DuracionMin { get; set; }
+    }
 }

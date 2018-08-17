@@ -98,3 +98,12 @@
     padding: 5px 15px;
     border-radius: 0px;
 }
+
+.botonTemporadas {
+    background-color: black;
+    border: solid gray 1px;
+    padding: 5px 15px;
+    border-radius: 0px;
+    color: white;
+   font-weight: bold;
+}

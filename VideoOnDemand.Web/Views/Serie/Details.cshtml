@@ -11,7 +11,7 @@
 <div class="row contenedorDetallesImagenMedia">
     <div class="col-md-5 detallesMedia">
         <h2><strong> @Model.Nombre </strong></h2>
-        <h4>@Model.FechaLanzamiento.Value.Year (Numero de temporadas)  @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("%h") h @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("mm") min</h4>
+        <h4>@Model.FechaLanzamiento.Value.Year (@Model.Temporadas.Length temporadas)  @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("%h") h @TimeSpan.FromMinutes((double)Model.DuracionMin).ToString("mm") min</h4>
         <p class="textoDetalleMedia">@Model.Descripcion</p>
         <div class="form-group">
             <a class="btn btn-danger botonReproducir" href="~/MovieCatalogo/Reproductor"><span class="glyphicon glyphicon-play" style="margin-right: 5px;"></span><strong>Reproducir</strong></a>
@@ -29,7 +29,7 @@
         <p class="textoDetalleMedia">
             <strong>Géneros: </strong>
             @foreach (var genero in Model.Generos)
-            { 
+            {
                 <span class="badge badgeMedia">@genero.Nombre</span>
             }
         </p>
@@ -38,6 +38,55 @@
 
     </div>
 </div>
+
+<div class="container-fluid" style="margin-top: 30px;color: gray;">
+
+    @if (Model.Temporadas.Length > 0)
+    {
+        <div class="btn-group">
+            <button id="btnTemporadas" type="button" class="btn btn-danger dropdown-toggle botonTemporadas" data-toggle="dropdown" data-temporada-inicial="@Model.Temporadas[0]">
+                <span id="btnTextoTemporada">
+                    Temporada @Model.Temporadas[0]
+                </span>
+                <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu" id="listaTemporadas">
+                @for (int temporada = 0; temporada < Model.Temporadas.Length; temporada++)
+                {
+                    <li><a onclick="actualizarCarruselTemporadas(@Model.Temporadas[temporada])">Temporada @Model.Temporadas[temporada]</a></li>
+                }
+            </ul>
+        </div>
+
+        <div id="carrucelEpisodios" class="row carousel slide" style="margin-top: 20px;">
+            <div class="carousel-inner" id="episodios">
+
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carrucelEpisodios" data-slide="prev" hidden>
+                <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#carrucelEpisodios" data-slide="next" hidden>
+                <span class="icon-next"></span>
+            </a>
+        </div>
+
+
+    }
+    else
+    {
+       <div class="btn-group">
+            <button id="btnTemporadas" type="button" class="btn btn-danger botonTemporadas" data-temporada-inicial="">
+                <span id="btnTextoTemporada">
+                    Sin temporadas
+                </span>
+            </button>
+        </div>
+    }
+</div>      
+
 
 
 <div class="container-fluid" style="margin-top: 30px;color: gray;">
@@ -50,7 +99,7 @@
                 <div class="panel-body">
                     <form id="formularioOpinion">
                         <input type="text" id="serieId" name="serieId" value="@Model.MediaId" hidden />
-                        <input type="number" id="puntuacion" name="puntuacion" value="0" hidden/>
+                        <input type="number" id="puntuacion" name="puntuacion" value="0" hidden />
                         <div class="form-group">
                             <textarea id="opinion" name="opinion" class="form-control" maxlength="200" rows="3" placeholder="Agrega una reseña" style="resize:none;min-width:100%;"></textarea>
                         </div>
@@ -64,6 +113,8 @@
             </div>
         </div>
     </div>
+
+
 
     <div id="listaOpiniones">
 
@@ -89,18 +140,19 @@
                 onHover: function (currentIndex, currentRating, $el) {
                     $("#puntuacion").val(currentRating);
                 }
-                
+
             });
 
             consultar($("#serieId").val());
 
-           
+            if ($("#btnTemporadas").attr("data-temporada-inicial") != "") {
+                actualizarCarruselTemporadas($("#btnTemporadas").attr("data-temporada-inicial"));
+            }
         });
 
         function validarOpinion(datos) {
             if (datos.puntuacion.value != "") {
                 registrarOpinion(datos);
-                
             }
         }
 
@@ -136,7 +188,7 @@
                         setTimeout(function () {
                             $("#errorOpinion").fadeOut("slow");
                         }, 3000);
-                        
+
                     }
                 }
             });
@@ -166,7 +218,7 @@
                         setTimeout(function () {
                             $("#errorOpinion").fadeOut("slow");
                         }, 3000);
-                        
+
                     }
                 }
             });
@@ -226,6 +278,71 @@
                     }
                 });
         }
+
+        function actualizarCarruselTemporadas(temporada) {
+            $.ajax({
+                url: '@Url.Action("ConsultarPorTemporada", "Episodio")' + '/' + temporada,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: null,
+                    success: function (data) {
+                        if (data.Success) {
+                            //Convierto la cadena JSON a objeto JS
+                            var episodios = JSON.parse(data.Episodios);
+
+                            //Quita lo que este dentro del div
+                            $("#episodios").empty();
+                            var html = "";
+                            html += "<div class='item active'>";
+
+                            for (i = 1; i <= episodios.length; i++) {
+                                try {
+                                    var episodio = episodios[i - 1];
+                                    if (i % 4 == 0) {
+                                        html += "<div class='col-md-3'>";
+                                        html += "<img src='/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg' style='width:100%;' />";
+                                        html += "<div>";
+                                        html += "<span>" + episodio.Nombre + "</span> <span class='pull-right'>" + episodio.DuracionMin + "</span>";
+                                        html += "</div>";
+                                        html += "<p>" + episodio.Descripcion + "</p>";
+                                        html += "</div>";
+
+                                        html += "</div>";
+                                        html += "<div class='item'>";
+                                    } else {
+                                        html += "<div class='col-md-3'>";
+                                        html += "<img src='/Multimedia/r_cars3_header_poststreet_d2c05b66.jpeg' style='width:100%;' />";
+                                        html += "<div>";
+                                        html += "<span>" + episodio.Nombre + "</span> <span class='pull-right'>" + episodio.DuracionMin + "</span>";
+                                        html += "</div>";
+                                        html += "<p>" + episodio.Descripcion + "</p>";
+                                        html += "</div>";
+                                    }
+
+                                } catch {
+                                    html += "</div>";
+                                }
+                            }
+                            $("#episodios").append(html);
+                            $("#btnTextoTemporada").html("Temporada " + temporada);
+
+                            $("#carrucelEpisodios").carousel({
+                                interval: 6000
+                            });
+
+                            if (episodios.length < 4) {
+                                $(".carousel-control").hide();
+                                $("#carrucelEpisodios").carousel('pause');
+                            } else {
+                                $(".carousel-control").show();
+                                $("#carrucelEpisodios").carousel('cycle');
+                            }
+                        }
+                    }
+                });
+
+        }
+
     </script>
 
 }

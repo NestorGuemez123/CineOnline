@@ -48,6 +48,7 @@ namespace VideoOnDemand.Web.Controllers
             #region Repositorios necesarios
             SerieRepository serieRepository = new SerieRepository(context);
             FavoritoRepository favoritoRepository = new FavoritoRepository(context);
+            EpisodioRepository episodioRepository = new EpisodioRepository(context);
             #endregion
 
             #region Consulta la serie en la bd
@@ -67,7 +68,7 @@ namespace VideoOnDemand.Web.Controllers
                 model.IdFavorito = idFav;
             }
             model.MiFavorito = enFav;
-
+            model.Temporadas = episodioRepository.Query(e => e.SerieId == model.MediaId && e.EstadosMedia == EEstatusMedia.VISIBLE).OrderBy(e => e.Temporada).Select(e => e.Temporada.Value).Distinct().ToArray();
             #endregion
 
             return View(model);

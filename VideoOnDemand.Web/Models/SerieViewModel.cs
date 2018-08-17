@@ -171,5 +171,7 @@ namespace VideoOnDemand.Web.Models
         public bool MiFavorito { get; set; }
         public int? IdFavorito { get; set; }
 
+        // Mantiene la lista de temporadas
+        public int[] Temporadas { get; set; }
     }
 }
