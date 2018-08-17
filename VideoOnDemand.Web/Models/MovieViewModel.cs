@@ -11,7 +11,7 @@ namespace VideoOnDemand.Web.Models
     public class MovieViewModel 
     {
         public int? MediaId { get; set; }
-
+        [MaxLength(100, ErrorMessage = "El nombre debe ser menor o igual a 100 caracteres")]
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
         [DisplayName("Decripción")]
@@ -41,6 +41,7 @@ namespace VideoOnDemand.Web.Models
 
         public bool MiFavorito { get; set; }
         public int? IdFavorito { get; set; }
+        public bool esMovie { get; set; }
         public ICollection<PersonaViewModel> ActoresDisponibles { get; set; }
         public int[] ActoresSeleccionados { get; set; }
 

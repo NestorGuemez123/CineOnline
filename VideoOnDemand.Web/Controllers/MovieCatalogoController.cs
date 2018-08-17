@@ -51,12 +51,17 @@ namespace VideoOnDemand.Web.Controllers
             var movie = repository.QueryIncluding(x => x.MediaId == id, includes).SingleOrDefault();
             var model = MapHelper.Map<MovieViewModel>(movie);
             bool enFav = FavoritoRepository.Query(x => x.mediaId == id).Count() > 0;
+            bool enMedia= FavoritoRepository.Query(x => x.mediaId == id).Count() < 0;
             if (enFav == true){
                 var TodoFav = FavoritoRepository.Query(x => x.mediaId == id).First();
+                var ValidacionMe = repository.Query(x => x.MediaId == id).Count()>0 ;
+                if (ValidacionMe == false) {
+                    return RedirectToAction("Details/" + id, "Serie");
+                }
                 var idFav = TodoFav.id;
                 model.IdFavorito = idFav;
             }
-
+            model.esMovie = enMedia;
             var generos = GeneroRepository.Query(g => g.Activo == true);
             var actores = PersonaRepository.Query(a => a.Status == true);
             model.GenerosDisponibles = MapHelper.Map<ICollection<GeneroViewModel>>(generos);

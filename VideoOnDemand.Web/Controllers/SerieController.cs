@@ -20,7 +20,7 @@ namespace VideoOnDemand.Web.Controllers
             GeneroRepository generoRepository = new GeneroRepository(context);
 
             var includes = new Expression<Func<Serie, object>>[] { s => s.Generos };
-            
+
             int totalDePaginas;
             int totalDeFilas;
 
@@ -64,11 +64,13 @@ namespace VideoOnDemand.Web.Controllers
             bool enFav = favoritoRepository.Query(x => x.mediaId == id).Count() > 0;
             if (enFav == true)
             {
-                var idFav = favoritoRepository.Query(x => x.mediaId == id).Select( x => x.id).FirstOrDefault();
+                var TodoFav = favoritoRepository.Query(x => x.mediaId == id).First();
+                var idFav = TodoFav.id;
                 model.IdFavorito = idFav;
             }
             model.MiFavorito = enFav;
             model.Temporadas = episodioRepository.Query(e => e.SerieId == model.MediaId && e.EstadosMedia == EEstatusMedia.VISIBLE).OrderBy(e => e.Temporada).Select(e => e.Temporada.Value).Distinct().ToArray();
+            model.esMovie = true;
             #endregion
 
             return View(model);

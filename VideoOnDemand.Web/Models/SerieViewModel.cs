@@ -170,6 +170,7 @@ namespace VideoOnDemand.Web.Models
         // Mantiene datos sobre si la pelicula pertenece a favoritos
         public bool MiFavorito { get; set; }
         public int? IdFavorito { get; set; }
+        public bool esMovie { get; set; }
 
         // Mantiene la lista de temporadas
         public int[] Temporadas { get; set; }
