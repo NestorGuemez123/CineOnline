@@ -78,7 +78,8 @@ namespace VideoOnDemand.Web.Models
         [Required(ErrorMessage = "La duración es requerida")]
         [DisplayName("Duracion (min)")]
         public int? DuracionMin { get; set; }
-       
+
+        [Required(ErrorMessage = "La fecha de registro es requerida")]
         public DateTime? FechaRegistro { get; set; }
 
         [Required(ErrorMessage = "La fecha de lanzamiento es requerida")]

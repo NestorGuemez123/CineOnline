@@ -15,14 +15,27 @@ namespace VideoOnDemand.Web.Controllers
     public class FavoritoController :BaseController
     {
         // GET: Favorito
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, string busqueda = null, string genero = null, int pageSize = 3)
         {
             MediaViewModel media = new MediaViewModel();
+            MediaRepository mediaRepo = new MediaRepository(context);
             FavoritoRepository repository = new FavoritoRepository(context);
+            var includes = new Expression<Func<Media, object>>[] { s => s.Generos };
             var lst = repository.Query(x=> x.media.EstadosMedia == EEstatusMedia.VISIBLE).OrderBy(x=> x.media.Nombre);
+            int totalDePaginas;
+            int totalDeFilas;
+            ICollection<Media> movies;
+            movies = mediaRepo.QueryPageByNombreAndGeneroIncluding(busqueda, genero, includes, out totalDePaginas, out totalDeFilas, "Nombre", page - 1, pageSize);
 
-            var models = MapHelper.Map<List<FavoritoViewModel>>(lst);
-            return View(models);
+            ViewBag.Busqueda = busqueda;
+            ViewBag.Genero = genero;
+            var paginador = new PaginatorViewModel<MediaViewModel>();
+            paginador.Page = page;
+            paginador.PageSize = pageSize;
+            paginador.Results = MapHelper.Map<ICollection<MediaViewModel>>(movies);
+            paginador.TotalPages = totalDePaginas;
+            paginador.TotalRows = totalDeFilas;
+            return View(paginador);
         }
 
         // GET: Favorito/Details/5

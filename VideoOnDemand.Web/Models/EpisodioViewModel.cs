@@ -22,15 +22,18 @@ namespace VideoOnDemand.Web.Models
     {
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "La descripción es requerida")]
+        [DisplayName("Descripción")]
         public string Descripcion { get; set; }
-
+        [Required(ErrorMessage = "La dduración es requerida")]
         [DisplayName("Duración (min)")]
         public int? DuracionMin { get; set; }
-
+        [Required(ErrorMessage = "La fecha de lanzamiento es requerido")]
         [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
+        [Required(ErrorMessage = "La temporada es requerida")]
         public int? Temporada { get; set; }
         public int? SerieId { get; set; }
     }
@@ -41,20 +44,25 @@ namespace VideoOnDemand.Web.Models
 
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "La descripción es requerida")]
+        [DisplayName("Descripción")]
         public string Descripcion { get; set; }
-
+        [Required(ErrorMessage = "La dduración es requerida")]
         [DisplayName("Duración (min)")]
         public int? DuracionMin { get; set; }
 
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "La fecha de registro es requerido")]
+        [DisplayName("Fecha de registro")]
         public DateTime? FechaRegistro { get; set; }
-
+        [Required(ErrorMessage = "La fecha de lanzamiento es requerido")]
         [DisplayName("Fecha de lanzamiento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaLanzamiento { get; set; }
 
+        [Required(ErrorMessage = "La temporada es requerida")]
         public int? Temporada { get; set; }
         public int? SerieId { get; set; }
 
